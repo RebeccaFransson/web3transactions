@@ -1,8 +1,14 @@
+import { Box } from "../_components/box";
+import { PrimaryButton } from "../_components/button";
+import { H1 } from "../_components/text";
+
 export default function Transactions() {
   return (
     <div className="">
-      <h1 className="text-white text-6xl">Transactions</h1>
-      <div className="w-[900px] h-[900px] bg-white rounded-sm">hej</div>
+      <H1 className="pb-1">Transactions</H1>
+      <Box className="">
+        hej <PrimaryButton href="/">Click me</PrimaryButton>
+      </Box>
     </div>
   );
 }
