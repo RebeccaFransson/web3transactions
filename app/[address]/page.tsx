@@ -30,49 +30,17 @@ export default function Transactions({
     };
     fetchTransactions();
   }, []);
-  const test = [
-    {
-      amount: 9999,
-      timestamp: new Date("2024-01-01"),
-      hash: "123",
-      address: "0x12345678910",
-    },
-    {
-      amount: 8888,
-      timestamp: new Date("2024-02-01"),
-      hash: "123",
-      address: "0x12345678910",
-    },
-    {
-      amount: 7777,
-      timestamp: new Date("2024-03-01"),
-      hash: "123",
-      address: "0x12345678910",
-    },
-    {
-      amount: 6666,
-      timestamp: new Date("2024-04-01"),
-      hash: "123",
-      address: "0x12345678910",
-    },
-    {
-      amount: 5555,
-      timestamp: new Date("2024-05-01"),
-      hash: "123",
-      address: "0x12345678910",
-    },
-  ];
 
   return (
     <div className="w-full flex flex-col gap-8 sm:gap-16">
-      <div className="rounded border-2 border-gray-100 p-4">
+      <div className="rounded border-b-2 border-pink-50 p-4">
         <div className="flex gap-4 justify-start min-[862px]:justify-around flex-wrap">
           <div className="flex flex-col">
             <TextMedium bold className="text-gray">
               Address
             </TextMedium>
             <div className="flex gap-2 items-center">
-              <TextLarge bold className=" text-pink-900">
+              <TextLarge bold className=" text-black">
                 {formatAddressShort(params.address)}
               </TextLarge>
               <TextButton
@@ -89,7 +57,7 @@ export default function Transactions({
             </TextMedium>
 
             <div className="flex gap-4 items-center">
-              <TextLarge bold className=" text-pink-900 pr-4">
+              <TextLarge bold className=" text-black pr-4">
                 {formatUSD(1234567.89)}
               </TextLarge>
               <PrimaryButton small onClick={() => {}}>
@@ -103,7 +71,7 @@ export default function Transactions({
             </TextMedium>
 
             <div className="flex gap-4 items-center">
-              <TextLarge bold className=" text-pink-900 pr-4">
+              <TextLarge bold className=" text-black pr-4">
                 Something
               </TextLarge>
               <SeconaryButton
@@ -118,7 +86,7 @@ export default function Transactions({
         </div>
       </div>
 
-      <div className=" flex flex-col items-center">
+      <div className=" flex flex-col items-center p-2 sm:p-4">
         <div className="w-full lg:w-[990px]">
           <H1 className="pl-5">TRANSACTIONS</H1>
           <Box className="">
@@ -153,7 +121,7 @@ export default function Transactions({
                   <th className="pt-4 pb-2 sm:table-cell hidden">
                     <div className="flex items-center">
                       <TextMedium bold className="text-gray">
-                        Other
+                        Action
                       </TextMedium>
                     </div>
                   </th>
@@ -162,19 +130,19 @@ export default function Transactions({
               </thead>
               <tbody>
                 {transactions.map((transaction) => (
-                  <tr className="border-b border-gray-50 group hover:bg-pink-50">
+                  <tr className="border-b border-gray-50 group hover:bg-gray-50">
                     <th className="py-3 pl-4 text-left">
-                      <TextMedium className="py-1 px-2 text-pink-900">
+                      <TextMedium className="py-1 px-2 text-black">
                         {formatUSD(transaction.value)}
                       </TextMedium>
                     </th>
                     <th className="text-left">
-                      <TextMedium className="py-1 px-2 text-pink-900">
+                      <TextMedium className="py-1 px-2 text-black">
                         {transaction.timeStamp}
                       </TextMedium>
                     </th>
                     <th className="text-left">
-                      <TextMedium className="text-pink-900">
+                      <TextMedium className="text-black">
                         {formatAddressShort(transaction.address)}
                       </TextMedium>
                     </th>

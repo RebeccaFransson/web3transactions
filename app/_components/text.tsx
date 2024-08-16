@@ -8,9 +8,7 @@ export const H1 = ({
   className?: string;
 }) => {
   return (
-    <h1 className={`${className} text-pink-600 font-bold text-4xl`}>
-      {children}
-    </h1>
+    <h1 className={`${className} text-black font-bold text-4xl`}>{children}</h1>
   );
 };
 
