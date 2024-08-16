@@ -1,26 +1,35 @@
+"use client";
+import { useEffect, useState } from "react";
 import { Box } from "../_components/box";
 import {
   PrimaryButton,
   SeconaryButton,
   TextButton,
-  TextButtonOnColoredBg,
 } from "../_components/button";
 import { ArrowRightIcon } from "../_components/icons/arrowRight";
 import { CopyIcon } from "../_components/icons/copy";
 import { SortUpAndDownIcon } from "../_components/icons/sort";
 import { H1, TextLarge, TextMedium } from "../_components/text";
-import {
-  calculateTimeAgo,
-  formatAddressShort,
-  formatDate,
-  formatUSD,
-} from "../utils";
+import { EtherscanService } from "../services/etherscanService";
+import { calculateTimeAgo, formatAddressShort, formatUSD } from "../utils";
+import type { Transaction } from "../services/response";
 
 export default function Transactions({
   params,
 }: {
   params: { address: string };
 }) {
+  const service = new EtherscanService();
+  const [transactions, setTrasactions] = useState<Transaction[]>([]);
+
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      const data = await service.fetchTransactions({ address: params.address });
+      setTrasactions(data);
+      console.log(data);
+    };
+    fetchTransactions();
+  }, []);
   const test = [
     {
       amount: 9999,
@@ -152,16 +161,16 @@ export default function Transactions({
                 </tr>
               </thead>
               <tbody>
-                {test.map((transaction) => (
+                {transactions.map((transaction) => (
                   <tr className="border-b border-gray-50 group hover:bg-pink-50">
                     <th className="py-3 pl-4 text-left">
                       <TextMedium className="py-1 px-2 text-pink-900">
-                        {formatUSD(transaction.amount)}
+                        {formatUSD(transaction.value)}
                       </TextMedium>
                     </th>
                     <th className="text-left">
                       <TextMedium className="py-1 px-2 text-pink-900">
-                        {calculateTimeAgo(transaction.timestamp)}
+                        {transaction.timeStamp}
                       </TextMedium>
                     </th>
                     <th className="text-left">
