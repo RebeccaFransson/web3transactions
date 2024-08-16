@@ -9,9 +9,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        pink: { DEFAULT: "#ff4eb8", transparent: "rgb(255, 78, 184, 0.2)" },
-        orange: { DEFAULT: "#ff4e17" },
+        pink: {
+          DEFAULT: "#ff4eb8",
+          transparent: "rgb(255, 78, 184, 0.2)",
+          600: "#FF4E65",
+          900: "rgb(100 0 53)",
+        },
+        orange: { DEFAULT: "#ff4e17", transparent: "rgb(255, 78, 23, 0.2)" },
         white: { DEFAULT: "#fff", transparent: "rgba(250,250,250, 0.2)" },
+        gray: { DEFAULT: "#837678" },
       },
       width: {
         box: "900px",

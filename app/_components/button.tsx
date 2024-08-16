@@ -6,14 +6,96 @@ export const PrimaryButton = ({
   className,
   onClick,
   href,
+  small = false,
+}: {
+  children: ReactNode;
+  className?: string;
+  onClick?: () => void;
+  href?: string;
+  small?: boolean;
+}) => {
+  const classes = `${className} ${
+    small ? "py-1 px-2" : "py-2 px-4"
+  }  bg-gradient-to-r from-pink-400 via-pink-600 to-pink-400 rounded text-white font-bold outline outline-2 outline-transparent hover:outline-pink-transparent bg-size-200 bg-pos-0 hover:bg-pos-100 transition-all duration-300 `;
+  if (href)
+    return (
+      <Link className={classes} href={href}>
+        {children}
+      </Link>
+    );
+  if (onClick) return <button className={classes}>{children}</button>;
+  throw Error(
+    "Button needs either a href(becomes a link) or a onClick(becomes a button)."
+  );
+};
+export const SeconaryButton = ({
+  children,
+  className,
+  onClick,
+  href,
+  small = false,
+}: {
+  children: ReactNode;
+  className?: string;
+  onClick?: () => void;
+  href?: string;
+  small?: boolean;
+}) => {
+  const classes = `${className} ${
+    small ? "py-1 px-2" : "py-2 px-4"
+  } bg-pink-transparent border border-pink-300 rounded font-bold outline outline-transparent hover:outline-pink-transparent hover:shadow-inner shadow-pink bg-size-200 bg-pos-0 hover:bg-pos-100 transition-all duration-300 `;
+  if (href)
+    return (
+      <Link className={classes} href={href}>
+        {children}
+      </Link>
+    );
+  if (onClick) return <button className={classes}>{children}</button>;
+  throw Error(
+    "Button needs either a href(becomes a link) or a onClick(becomes a button)."
+  );
+};
+
+export const TextButtonOnColoredBg = ({
+  children,
+  className,
+  onClick,
+  href,
 }: {
   children: ReactNode;
   className?: string;
   onClick?: () => void;
   href?: string;
 }) => {
-  //hover:px-3 hover:mx-1
-  const classes = `${className} bg-gradient-to-r from-pink via-orange to-pink rounded py-2 px-4 text-white font-bold outline outline-2 outline-transparent hover:outline-pink-transparent bg-size-200 bg-pos-0 hover:bg-pos-100 transition-all duration-300 `;
+  const classes = `${className} flex gap-2 items-center justify-start hover:bg-white-transparent fill-white py-1 px-2 rounded`;
+  if (href)
+    return (
+      <Link className={classes} href={href}>
+        {children}
+      </Link>
+    );
+  if (onClick) return <button className={classes}>{children}</button>;
+  throw Error(
+    "Button needs either a href(becomes a link) or a onClick(becomes a button)."
+  );
+};
+
+export const TextButton = ({
+  children,
+  className,
+  onClick,
+  href,
+  small = false,
+}: {
+  children: ReactNode;
+  className?: string;
+  onClick?: () => void;
+  href?: string;
+  small?: boolean;
+}) => {
+  const classes = `${className} ${
+    small ? "py-0.5 px-1" : "py-1 px-2"
+  } flex gap-2 items-center justify-start w-fit bg-transparent transition-bg duration-300  rounded`;
   if (href)
     return (
       <Link className={classes} href={href}>

@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { BlobPink } from "./_components/svgs/blobPink";
+import { PrimaryButton, SeconaryButton } from "./_components/button";
+import { TextMedium, TextLarge } from "./_components/text";
+import { formatAddressShort, formatUSD } from "./utils";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,19 +17,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="h-screen bg-gradient-to-b from-pink to-orange">
-        <div className="group flex gap-10 items-center justify-between text-white font-extrabold border-b border-white-transparent py-4 px-10 mb-20">
-          <h2>REBECCA FRANSSON</h2>
+      <body className="h-screen">
+        <div className="relative z-20 group flex gap-10 items-center justify-between text-white font-extrabold border-b border-white-transparent py-4 px-10 bg-gradient-to-l from-pink-200 to-pink-600">
           <div className="flex gap-10 items-center ">
+            <h2>REBECCA FRANSSON</h2>
             <span className="font-normal text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-              rebeccaellenfransson@gmail.com
+              myemail@gmail.com
             </span>
             <span className="font-normal text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-              +46 735 83 86 96
+              +phone num ber
             </span>
           </div>
         </div>
-        <div className="flex justify-center">{children}</div>
+
+        <div className="flex justify-center p-4">{children}</div>
       </body>
     </html>
   );

@@ -1,14 +1,183 @@
 import { Box } from "../_components/box";
-import { PrimaryButton } from "../_components/button";
-import { H1 } from "../_components/text";
+import {
+  PrimaryButton,
+  SeconaryButton,
+  TextButton,
+  TextButtonOnColoredBg,
+} from "../_components/button";
+import { ArrowRightIcon } from "../_components/icons/arrowRight";
+import { CopyIcon } from "../_components/icons/copy";
+import { SortUpAndDownIcon } from "../_components/icons/sort";
+import { H1, TextLarge, TextMedium } from "../_components/text";
+import {
+  calculateTimeAgo,
+  formatAddressShort,
+  formatDate,
+  formatUSD,
+} from "../utils";
 
-export default function Transactions() {
+export default function Transactions({
+  params,
+}: {
+  params: { address: string };
+}) {
+  const test = [
+    {
+      amount: 9999,
+      timestamp: new Date("2024-01-01"),
+      hash: "123",
+      address: "0x12345678910",
+    },
+    {
+      amount: 8888,
+      timestamp: new Date("2024-02-01"),
+      hash: "123",
+      address: "0x12345678910",
+    },
+    {
+      amount: 7777,
+      timestamp: new Date("2024-03-01"),
+      hash: "123",
+      address: "0x12345678910",
+    },
+    {
+      amount: 6666,
+      timestamp: new Date("2024-04-01"),
+      hash: "123",
+      address: "0x12345678910",
+    },
+    {
+      amount: 5555,
+      timestamp: new Date("2024-05-01"),
+      hash: "123",
+      address: "0x12345678910",
+    },
+  ];
+
   return (
-    <div className="">
-      <H1 className="pb-1">Transactions</H1>
-      <Box className="">
-        hej <PrimaryButton href="/">Click me</PrimaryButton>
-      </Box>
+    <div className="w-full flex flex-col gap-16">
+      <div className="rounded border-2 border-gray-100 p-4">
+        <div className="flex gap-4 justify-start md:justify-around flex-wrap">
+          <div className="flex flex-col">
+            <TextMedium bold className="text-gray">
+              Address
+            </TextMedium>
+            <div className="flex gap-2 items-center">
+              <TextLarge bold className=" text-pink-900">
+                {formatAddressShort(params.address)}
+              </TextLarge>
+              <TextButton
+                className="stroke-pink-900 hover:bg-pink-transparent"
+                onClick={() => {}}
+              >
+                <CopyIcon />
+              </TextButton>
+            </div>
+          </div>
+          <div className="flex flex-col">
+            <TextMedium bold className="text-gray">
+              Balance
+            </TextMedium>
+
+            <div className="flex gap-4 items-center">
+              <TextLarge bold className=" text-pink-900 pr-4">
+                {formatUSD(1234567.89)}
+              </TextLarge>
+              <PrimaryButton small onClick={() => {}}>
+                Action
+              </PrimaryButton>
+            </div>
+          </div>
+          <div className="flex flex-col">
+            <TextMedium bold className="text-gray">
+              Other
+            </TextMedium>
+
+            <div className="flex gap-4 items-center">
+              <TextLarge bold className=" text-pink-900 pr-4">
+                Something
+              </TextLarge>
+              <SeconaryButton
+                small
+                className="text-pink-400"
+                onClick={() => {}}
+              >
+                Button
+              </SeconaryButton>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className=" flex flex-col items-center">
+        <div className="w-full lg:w-[990px]">
+          <H1 className="pl-5">TRANSACTIONS</H1>
+          <Box className="">
+            <table className="w-full">
+              <thead className=" border-b mb-4">
+                <tr className="border-b mb-4">
+                  <th className="py-2 pl-2">
+                    <TextButtonOnColoredBg onClick={() => {}}>
+                      <TextMedium bold>Amount</TextMedium>
+                      <SortUpAndDownIcon />
+                    </TextButtonOnColoredBg>
+                  </th>
+                  <th>
+                    <TextButtonOnColoredBg onClick={() => {}}>
+                      <TextMedium bold>Date</TextMedium>
+                      <SortUpAndDownIcon />
+                    </TextButtonOnColoredBg>
+                  </th>
+                  <th>
+                    <TextButtonOnColoredBg onClick={() => {}}>
+                      <TextMedium bold>Wallet</TextMedium>
+                      <SortUpAndDownIcon />
+                    </TextButtonOnColoredBg>
+                  </th>
+                  <th className="">
+                    <TextButtonOnColoredBg onClick={() => {}}>
+                      <TextMedium bold>Other</TextMedium>
+                      <SortUpAndDownIcon />
+                    </TextButtonOnColoredBg>
+                  </th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {test.map((transaction) => (
+                  <tr className="border-b border-pink-50 group">
+                    <th className="py-3 pl-2 text-left">
+                      <TextMedium className="py-1 px-2">
+                        {formatUSD(transaction.amount)}
+                      </TextMedium>
+                    </th>
+                    <th className="text-left">
+                      <TextMedium className="py-1 px-2">
+                        {calculateTimeAgo(transaction.timestamp)}
+                      </TextMedium>
+                    </th>
+                    <th className="text-left">
+                      <TextMedium>
+                        {formatAddressShort(transaction.address)}
+                      </TextMedium>
+                    </th>
+                    <th className="text-left"></th>
+                    <th className="">
+                      <TextButton
+                        className="fill-pink-900 group-hover:bg-pink-transparent"
+                        href={`${params.address}/${transaction.hash}`}
+                        small
+                      >
+                        <ArrowRightIcon />
+                      </TextButton>
+                    </th>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </Box>
+        </div>
+      </div>
     </div>
   );
 }

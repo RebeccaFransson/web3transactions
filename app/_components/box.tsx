@@ -9,9 +9,9 @@ export const Box = ({
 }) => {
   return (
     <div
-      className={`${className} w-[900px] h-[900px] bg-white rounded p-4 outline outline-white-transparent outline-8`}
+      className={`${className} bg-gradient-to-l from-pink-200 to-pink-600 rounded p-1`}
     >
-      {children}
+      <div className={` w-full bg-white rounded`}>{children}</div>
     </div>
   );
 };
