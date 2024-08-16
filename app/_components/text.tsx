@@ -8,7 +8,7 @@ export const H1 = ({
   className?: string;
 }) => {
   return (
-    <h1 className={`${className} text-pink-900 font-bold text-4xl`}>
+    <h1 className={`${className} text-pink-600 font-bold text-4xl`}>
       {children}
     </h1>
   );
@@ -24,9 +24,7 @@ export const TextMedium = ({
   bold?: boolean;
 }) => (
   <span
-    className={`${className} ${
-      bold ? "font-bold" : "font-normal"
-    } text-gray text-sm`}
+    className={`${className} ${bold ? "font-bold" : "font-normal"}  text-sm`}
   >
     {children}
   </span>
@@ -42,7 +40,9 @@ export const TextLarge = ({
   bold?: boolean;
 }) => (
   <span
-    className={`${className} ${bold ? "font-bold" : "font-normal"}  text-3xl`}
+    className={`${className} ${
+      bold ? "font-bold" : "font-normal"
+    } text-xl sm:text-3xl`}
   >
     {children}
   </span>

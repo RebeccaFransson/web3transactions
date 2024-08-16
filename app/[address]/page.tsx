@@ -55,9 +55,9 @@ export default function Transactions({
   ];
 
   return (
-    <div className="w-full flex flex-col gap-16">
+    <div className="w-full flex flex-col gap-8 sm:gap-16">
       <div className="rounded border-2 border-gray-100 p-4">
-        <div className="flex gap-4 justify-start md:justify-around flex-wrap">
+        <div className="flex gap-4 justify-start min-[862px]:justify-around flex-wrap">
           <div className="flex flex-col">
             <TextMedium bold className="text-gray">
               Address
@@ -114,62 +114,72 @@ export default function Transactions({
           <H1 className="pl-5">TRANSACTIONS</H1>
           <Box className="">
             <table className="w-full">
-              <thead className=" border-b mb-4">
-                <tr className="border-b mb-4">
-                  <th className="py-2 pl-2">
-                    <TextButtonOnColoredBg onClick={() => {}}>
+              <thead className=" ">
+                <tr className="border-b border-gray-100">
+                  <th className="pt-4 pb-2 pl-4">
+                    <TextButton
+                      className="text-gray fill-gray hover:text-black hover:fill-black"
+                      onClick={() => {}}
+                    >
                       <TextMedium bold>Amount</TextMedium>
                       <SortUpAndDownIcon />
-                    </TextButtonOnColoredBg>
+                    </TextButton>
                   </th>
-                  <th>
-                    <TextButtonOnColoredBg onClick={() => {}}>
+                  <th className="pt-4 pb-2">
+                    <TextButton
+                      className="text-gray fill-gray hover:text-black hover:fill-black"
+                      onClick={() => {}}
+                    >
                       <TextMedium bold>Date</TextMedium>
                       <SortUpAndDownIcon />
-                    </TextButtonOnColoredBg>
+                    </TextButton>
                   </th>
-                  <th>
-                    <TextButtonOnColoredBg onClick={() => {}}>
-                      <TextMedium bold>Wallet</TextMedium>
-                      <SortUpAndDownIcon />
-                    </TextButtonOnColoredBg>
+                  <th className="pt-4 pb-2">
+                    <div className="flex items-center">
+                      <TextMedium bold className="text-gray">
+                        Wallet
+                      </TextMedium>
+                    </div>
                   </th>
-                  <th className="">
-                    <TextButtonOnColoredBg onClick={() => {}}>
-                      <TextMedium bold>Other</TextMedium>
-                      <SortUpAndDownIcon />
-                    </TextButtonOnColoredBg>
+                  <th className="pt-4 pb-2 sm:table-cell hidden">
+                    <div className="flex items-center">
+                      <TextMedium bold className="text-gray">
+                        Other
+                      </TextMedium>
+                    </div>
                   </th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
                 {test.map((transaction) => (
-                  <tr className="border-b border-pink-50 group">
-                    <th className="py-3 pl-2 text-left">
-                      <TextMedium className="py-1 px-2">
+                  <tr className="border-b border-gray-50 group hover:bg-pink-50">
+                    <th className="py-3 pl-4 text-left">
+                      <TextMedium className="py-1 px-2 text-pink-900">
                         {formatUSD(transaction.amount)}
                       </TextMedium>
                     </th>
                     <th className="text-left">
-                      <TextMedium className="py-1 px-2">
+                      <TextMedium className="py-1 px-2 text-pink-900">
                         {calculateTimeAgo(transaction.timestamp)}
                       </TextMedium>
                     </th>
                     <th className="text-left">
-                      <TextMedium>
+                      <TextMedium className="text-pink-900">
                         {formatAddressShort(transaction.address)}
                       </TextMedium>
                     </th>
-                    <th className="text-left"></th>
+                    <th className="text-left sm:table-cell hidden"></th>
                     <th className="">
-                      <TextButton
-                        className="fill-pink-900 group-hover:bg-pink-transparent"
-                        href={`${params.address}/${transaction.hash}`}
-                        small
-                      >
-                        <ArrowRightIcon />
-                      </TextButton>
+                      <div className="flex items-center justify-center">
+                        <TextButton
+                          className="fill-pink-900 group-hover:bg-pink-transparent"
+                          href={`${params.address}/${transaction.hash}`}
+                          small
+                        >
+                          <ArrowRightIcon />
+                        </TextButton>
+                      </div>
                     </th>
                   </tr>
                 ))}

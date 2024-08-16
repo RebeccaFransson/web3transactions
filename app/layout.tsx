@@ -21,16 +21,14 @@ export default function RootLayout({
         <div className="relative z-20 group flex gap-10 items-center justify-between text-white font-extrabold border-b border-white-transparent py-4 px-10 bg-gradient-to-l from-pink-200 to-pink-600">
           <div className="flex gap-10 items-center ">
             <h2>REBECCA FRANSSON</h2>
-            <span className="font-normal text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-              myemail@gmail.com
-            </span>
-            <span className="font-normal text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-              +phone num ber
-            </span>
+            <div className="flex gap-2 md:gap-10 justify-between  flex-wrap opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+              <span className="font-normal text-sm">myemail@gmail.com</span>
+              <span className="font-normal text-sm">+phone num ber</span>
+            </div>
           </div>
         </div>
 
-        <div className="flex justify-center p-4">{children}</div>
+        <div className="flex justify-center p-2 sm:p-4">{children}</div>
       </body>
     </html>
   );

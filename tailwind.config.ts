@@ -29,6 +29,10 @@ const config: Config = {
         "pos-0": "0% 0%",
         "pos-100": "100% 100%",
       },
+      screens: {
+        sm: "450px",
+        md: "569px",
+      },
     },
   },
   plugins: [],
