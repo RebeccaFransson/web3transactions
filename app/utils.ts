@@ -42,20 +42,22 @@ export const calculateTimeAgo = (date: Date | string) => {
   return Math.floor(seconds) + "s ago";
 };
 
-export const formatUSD = (
-  amount: number,
-  noFractionDigits: Boolean = false
-) => {
-  const extraOptions = !noFractionDigits
-    ? {
-        maximumFractionDigits: 0,
-      }
-    : {};
-  return Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    ...extraOptions,
-  }).format(amount);
+export const formatEtherShort = (num: number, digits: number) => {
+  const lookup = [
+    { value: 0.001, symbol: "KEther" },
+    { value: 1, symbol: "Ether" },
+    { value: 1e3, symbol: "Finney" },
+    { value: 1e6, symbol: "Szabo" },
+    { value: 1e9, symbol: "GWei" },
+    { value: 1e12, symbol: "MWei" },
+    { value: 1e15, symbol: "KWei" },
+    { value: 1e18, symbol: "Wei" },
+  ];
+  const regexp = /\.0+$|(?<=\.[0-9]*[1-9])0+$/;
+  const item = lookup.findLast((item) => num >= item.value);
+  return item
+    ? (num / item.value).toFixed(digits).replace(regexp, "").concat(item.symbol)
+    : "0";
 };
 
 export const formatAddressShort = (address: `0x${string}` | string) => {

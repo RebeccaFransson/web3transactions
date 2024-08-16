@@ -1,23 +1,19 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Box } from "../_components/box";
-import {
-  PrimaryButton,
-  SeconaryButton,
-  TextButton,
-} from "../_components/button";
-import { ArrowRightIcon } from "../_components/icons/arrowRight";
-import { CopyIcon } from "../_components/icons/copy";
-import { SortUpAndDownIcon } from "../_components/icons/sort";
-import { H1, TextLarge, TextMedium } from "../_components/text";
-import { EtherscanService } from "../services/etherscanService";
-import { calculateTimeAgo, formatAddressShort, formatUSD } from "../utils";
-import type { Transaction } from "../services/response";
 import {
   PositiveBadge,
   PrimaryBadge,
   WarningBadge,
 } from "../_components/badge";
+import { Box } from "../_components/box";
+import { TextButton } from "../_components/button";
+import { ArrowRightIcon } from "../_components/icons/arrowRight";
+import { SortUpAndDownIcon } from "../_components/icons/sort";
+import { H1, TextMedium } from "../_components/text";
+import { WalletBalance } from "../_components/walletBalance";
+import { EtherscanService } from "../services/etherscanService";
+import type { Transaction } from "../services/response";
+import { formatAddressShort, formatEtherShort } from "../utils";
 
 export default function Transactions({
   params,
@@ -53,59 +49,7 @@ export default function Transactions({
 
   return (
     <div className="w-full flex flex-col gap-8 sm:gap-16">
-      <div className="rounded border-b-2 border-pink-50 p-4">
-        <div className="flex gap-4 justify-start min-[862px]:justify-around flex-wrap">
-          <div className="flex flex-col">
-            <TextMedium bold className="text-gray">
-              Address
-            </TextMedium>
-            <div className="flex gap-2 items-center">
-              <TextLarge bold className=" text-black">
-                {formatAddressShort(params.address)}
-              </TextLarge>
-              <TextButton
-                className="stroke-pink-900 hover:bg-pink-transparent"
-                onClick={() => {}}
-              >
-                <CopyIcon />
-              </TextButton>
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <TextMedium bold className="text-gray">
-              Balance
-            </TextMedium>
-
-            <div className="flex gap-4 items-center">
-              <TextLarge bold className=" text-black pr-4">
-                {formatUSD(1234567.89)}
-              </TextLarge>
-              <PrimaryButton small onClick={() => {}}>
-                Action
-              </PrimaryButton>
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <TextMedium bold className="text-gray">
-              Other
-            </TextMedium>
-
-            <div className="flex gap-4 items-center">
-              <TextLarge bold className=" text-black pr-4">
-                Something
-              </TextLarge>
-              <SeconaryButton
-                small
-                className="text-pink-400"
-                onClick={() => {}}
-              >
-                Button
-              </SeconaryButton>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      <WalletBalance address={params.address} />
       <div className=" flex flex-col items-center p-2 sm:p-4">
         <div className="w-full lg:w-[990px]">
           <H1 className="pl-5">TRANSACTIONS</H1>
@@ -150,10 +94,13 @@ export default function Transactions({
               </thead>
               <tbody>
                 {transactions.map((transaction) => (
-                  <tr className="border-b border-gray-50 group hover:bg-gray-50">
+                  <tr
+                    key={transaction.timeStamp}
+                    className="border-b border-gray-50 group hover:bg-gray-50"
+                  >
                     <th className="py-3 pl-4 text-left">
                       <TextMedium className="py-1 px-2 text-black">
-                        {formatUSD(transaction.value)}
+                        {formatEtherShort(transaction.value, 4)}
                       </TextMedium>
                     </th>
                     <th className="text-left">
