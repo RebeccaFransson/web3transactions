@@ -13,6 +13,11 @@ import { H1, TextLarge, TextMedium } from "../_components/text";
 import { EtherscanService } from "../services/etherscanService";
 import { calculateTimeAgo, formatAddressShort, formatUSD } from "../utils";
 import type { Transaction } from "../services/response";
+import {
+  PositiveBadge,
+  PrimaryBadge,
+  WarningBadge,
+} from "../_components/badge";
 
 export default function Transactions({
   params,
@@ -30,6 +35,21 @@ export default function Transactions({
     };
     fetchTransactions();
   }, []);
+
+  const getFunctionBadge = (func: string) => {
+    const type = func.split("(")[0];
+    switch (type) {
+      case "withdraw":
+        return <PrimaryBadge>Withdraw</PrimaryBadge>;
+      case "approve":
+        return <PositiveBadge>Approve</PositiveBadge>;
+      case "transfer":
+        return <WarningBadge>Transfer</WarningBadge>;
+
+      default:
+        break;
+    }
+  };
 
   return (
     <div className="w-full flex flex-col gap-8 sm:gap-16">
@@ -146,7 +166,9 @@ export default function Transactions({
                         {formatAddressShort(transaction.address)}
                       </TextMedium>
                     </th>
-                    <th className="text-left sm:table-cell hidden"></th>
+                    <th className="text-left sm:table-cell hidden">
+                      {getFunctionBadge(transaction.functionName)}
+                    </th>
                     <th className="">
                       <div className="flex items-center justify-center">
                         <TextButton
