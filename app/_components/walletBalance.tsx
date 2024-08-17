@@ -6,16 +6,16 @@ import { TextButton, PrimaryButton, SeconaryButton } from "./button";
 import { CopyIcon } from "./icons/copy";
 import { TextMedium, TextLarge } from "./text";
 import { EthIcon } from "./icons/eth";
+import { formatEther } from "viem";
 
 export const WalletBalance = ({ address }: { address: string }) => {
   const service = new EtherscanService();
-  const [balance, setBalance] = useState<number | null>(null);
+  const [balance, setBalance] = useState<bigint | null>(null);
 
   useEffect(() => {
     const fetchTransactions = async () => {
       const data = await service.fetchBalance({ address: address });
       setBalance(data);
-      console.log(data);
     };
     fetchTransactions();
   }, []);
@@ -46,7 +46,8 @@ export const WalletBalance = ({ address }: { address: string }) => {
 
           <div className="flex gap-4 items-center">
             <TextLarge bold className="flex gap-2 items-center text-black pr-4">
-              <EthIcon /> {balance ? formatEtherShort(balance, 2) : "-"}
+              <EthIcon />{" "}
+              {balance ? Number(formatEther(balance)).toFixed(2) : "-"}
             </TextLarge>
             <PrimaryButton small onClick={() => {}}>
               Action

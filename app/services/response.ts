@@ -1,7 +1,9 @@
+import type { Hex } from "viem";
+
 export type Transaction = {
   timeStamp: number;
   value: number;
   functionName: string;
-  blockHash: `0x${string}`;
-  input: `0x${string}`;
+  blockHash: Hex;
+  input: Hex;
 };

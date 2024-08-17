@@ -32,7 +32,7 @@ export class EtherscanService {
     });
   }
 
-  async fetchBalance({ address }: { address: string }): Promise<number> {
+  async fetchBalance({ address }: { address: string }): Promise<bigint> {
     let url = `${this.apiBaseUrl}?module=account&action=balance&address=${address}&tag=latest&apikey=${this.apiKey}`;
     return await this.request(url, {
       method: this.methods.GET,

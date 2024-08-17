@@ -13,10 +13,10 @@ import { H1, TextMedium } from "../_components/text";
 import { WalletBalance } from "../_components/walletBalance";
 import { EtherscanService } from "../services/etherscanService";
 import type { Transaction } from "../services/response";
-import { formatAddressShort, formatEtherShort } from "../utils";
+import { decodeAmount, formatAddressShort, formatEtherShort } from "../utils";
 import { CopyIcon } from "../_components/icons/copy"; // Import everything
 import Link from "next/link";
-import { decodeAbiParameters } from "viem";
+import { decodeAbiParameters, formatEther, type Hex } from "viem";
 
 export default function Transactions({
   params,
@@ -31,11 +31,6 @@ export default function Transactions({
       const data = await service.fetchTransactions({ address: params.address });
       setTrasactions(data);
       console.log(data);
-      const values = decodeAbiParameters(
-        [{ name: "amount", type: "uint256" }],
-        `0x${data[0].input.slice(10)}`
-      );
-      console.log(values);
       //
     };
     fetchTransactions();
@@ -109,7 +104,14 @@ export default function Transactions({
                   >
                     <th className="py-3 pl-4 text-left">
                       <TextMedium className="py-1 px-2 text-black">
-                        {formatEtherShort(transaction.value, 4)}
+                        {decodeAmount(transaction.input)
+                          ? formatEtherShort(
+                              Number(
+                                formatEther(decodeAmount(transaction.input))
+                              ),
+                              2
+                            )
+                          : ""}
                       </TextMedium>
                     </th>
                     <th className="text-left">
@@ -142,7 +144,7 @@ export default function Transactions({
                       <div className="flex items-center justify-center">
                         <TextButton
                           className="fill-pink-900 group-hover:bg-pink-transparent"
-                          href={`${params.address}/${transaction.hash}`}
+                          href={`${params.address}/${transaction.blockHash}`}
                           small
                         >
                           <ArrowRightIcon />

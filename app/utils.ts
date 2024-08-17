@@ -1,3 +1,6 @@
+import type { Hex } from "viem";
+import { decodeAbiParameters, formatEther } from "viem/utils";
+
 export const formatDate = (date: Date) => {
   // TODO: get translations into the date
   return Intl.DateTimeFormat("en-UK", {
@@ -42,20 +45,27 @@ export const calculateTimeAgo = (date: Date | string) => {
   return Math.floor(seconds) + "s ago";
 };
 
-export const formatEtherShort = (wei: number, digits: number) => {
+export const formatEtherShort = (ether: number, digits: number) => {
   const lookup = [
-    { value: 1, symbol: "Wei" },
-    { value: 1e3, symbol: "KWei" },
-    { value: 1e6, symbol: "MWei" },
-    { value: 1e9, symbol: "GWei" },
-    { value: 1e12, symbol: "Szabo" },
-    { value: 1e15, symbol: "Finney" },
-    { value: 1e18, symbol: "Ether" },
+    { value: 0.000000000000000001, symbol: " Wei" },
+    { value: 0.000000000000001, symbol: " Kwei" },
+    { value: 0.000000000001, symbol: " Mwei" },
+    { value: 0.000000001, symbol: " Gwei" },
+    { value: 0.000001, symbol: " Szabo" },
+    { value: 0.001, symbol: " Finney" },
+    { value: 1, symbol: " Ether" },
+    { value: 1e3, symbol: " KEther" },
+    { value: 1e6, symbol: " MEther" },
+    { value: 1e9, symbol: " GEther" },
+    { value: 1e12, symbol: " TEther" },
   ];
   const regexp = /\.0+$|(?<=\.[0-9]*[1-9])0+$/;
-  const item = lookup.findLast((item) => wei >= item.value);
+  const item = lookup.findLast((item) => ether >= item.value);
   return item
-    ? (wei / item.value).toFixed(digits).replace(regexp, "").concat(item.symbol)
+    ? (ether / item.value)
+        .toFixed(digits)
+        .replace(regexp, "")
+        .concat(item.symbol)
     : "0";
 };
 
@@ -68,4 +78,18 @@ export const formatAddressShort = (address: `0x${string}` | string) => {
     .splice(length - 5, length)
     .join("");
   return `${firstFive}...${lastFive}`;
+};
+
+export const decodeAmount = (input: Hex) => {
+  if (input == "0x") return BigInt(0);
+  const values = decodeAbiParameters(
+    [{ name: "amount", type: "uint256" }],
+    `0x${input.slice(10)}`
+  );
+  console.log(values);
+  console.log(formatEther(values[0]));
+  console.log(Number(formatEther(values[0])));
+  console.log(formatEtherShort(Number(formatEther(values[0])), 2));
+
+  return values[0];
 };
