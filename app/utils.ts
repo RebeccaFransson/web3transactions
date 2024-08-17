@@ -42,21 +42,20 @@ export const calculateTimeAgo = (date: Date | string) => {
   return Math.floor(seconds) + "s ago";
 };
 
-export const formatEtherShort = (num: number, digits: number) => {
+export const formatEtherShort = (wei: number, digits: number) => {
   const lookup = [
-    { value: 0.001, symbol: "KEther" },
-    { value: 1, symbol: "Ether" },
-    { value: 1e3, symbol: "Finney" },
-    { value: 1e6, symbol: "Szabo" },
+    { value: 1, symbol: "Wei" },
+    { value: 1e3, symbol: "KWei" },
+    { value: 1e6, symbol: "MWei" },
     { value: 1e9, symbol: "GWei" },
-    { value: 1e12, symbol: "MWei" },
-    { value: 1e15, symbol: "KWei" },
-    { value: 1e18, symbol: "Wei" },
+    { value: 1e12, symbol: "Szabo" },
+    { value: 1e15, symbol: "Finney" },
+    { value: 1e18, symbol: "Ether" },
   ];
   const regexp = /\.0+$|(?<=\.[0-9]*[1-9])0+$/;
-  const item = lookup.findLast((item) => num >= item.value);
+  const item = lookup.findLast((item) => wei >= item.value);
   return item
-    ? (num / item.value).toFixed(digits).replace(regexp, "").concat(item.symbol)
+    ? (wei / item.value).toFixed(digits).replace(regexp, "").concat(item.symbol)
     : "0";
 };
 

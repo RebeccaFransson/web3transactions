@@ -5,6 +5,7 @@ import { formatAddressShort, formatEtherShort } from "../utils";
 import { TextButton, PrimaryButton, SeconaryButton } from "./button";
 import { CopyIcon } from "./icons/copy";
 import { TextMedium, TextLarge } from "./text";
+import { EthIcon } from "./icons/eth";
 
 export const WalletBalance = ({ address }: { address: string }) => {
   const service = new EtherscanService();
@@ -44,8 +45,8 @@ export const WalletBalance = ({ address }: { address: string }) => {
           </TextMedium>
 
           <div className="flex gap-4 items-center">
-            <TextLarge bold className=" text-black pr-4">
-              {balance ? formatEtherShort(balance, 4) : "-"}
+            <TextLarge bold className="flex gap-2 items-center text-black pr-4">
+              <EthIcon /> {balance ? formatEtherShort(balance, 2) : "-"}
             </TextLarge>
             <PrimaryButton small onClick={() => {}}>
               Action

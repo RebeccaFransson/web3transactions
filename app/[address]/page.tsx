@@ -14,6 +14,9 @@ import { WalletBalance } from "../_components/walletBalance";
 import { EtherscanService } from "../services/etherscanService";
 import type { Transaction } from "../services/response";
 import { formatAddressShort, formatEtherShort } from "../utils";
+import { CopyIcon } from "../_components/icons/copy"; // Import everything
+import Link from "next/link";
+import { decodeAbiParameters } from "viem";
 
 export default function Transactions({
   params,
@@ -28,6 +31,12 @@ export default function Transactions({
       const data = await service.fetchTransactions({ address: params.address });
       setTrasactions(data);
       console.log(data);
+      const values = decodeAbiParameters(
+        [{ name: "amount", type: "uint256" }],
+        `0x${data[0].input.slice(10)}`
+      );
+      console.log(values);
+      //
     };
     fetchTransactions();
   }, []);
@@ -48,7 +57,7 @@ export default function Transactions({
   };
 
   return (
-    <div className="w-full flex flex-col gap-8 sm:gap-16">
+    <div className="w-full flex flex-col gap-8 sm:gap-12">
       <WalletBalance address={params.address} />
       <div className=" flex flex-col items-center p-2 sm:p-4">
         <div className="w-full lg:w-[990px]">
@@ -78,7 +87,7 @@ export default function Transactions({
                   <th className="pt-4 pb-2">
                     <div className="flex items-center">
                       <TextMedium bold className="text-gray">
-                        Wallet
+                        TX Hash
                       </TextMedium>
                     </div>
                   </th>
@@ -108,10 +117,23 @@ export default function Transactions({
                         {transaction.timeStamp}
                       </TextMedium>
                     </th>
-                    <th className="text-left">
-                      <TextMedium className="text-black">
-                        {formatAddressShort(transaction.address)}
-                      </TextMedium>
+                    <th className="text-left ">
+                      <div className="flex gap-1 items-center">
+                        <Link
+                          target="_blank"
+                          href={`https://blockexplorer.one/ethereum/mainnet/blockHash/${transaction.blockHash}`}
+                        >
+                          <TextMedium className=" text-black hover:text-pink-900">
+                            {formatAddressShort(transaction.blockHash)}
+                          </TextMedium>
+                        </Link>
+                        <TextButton
+                          className="stroke-pink-900 hover:bg-pink-transparent"
+                          onClick={() => {}}
+                        >
+                          <CopyIcon small />
+                        </TextButton>
+                      </div>
                     </th>
                     <th className="text-left sm:table-cell hidden">
                       {getFunctionBadge(transaction.functionName)}

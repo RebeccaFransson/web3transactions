@@ -95,7 +95,7 @@ export const TextButton = ({
 }) => {
   const classes = `${className} ${
     small ? "py-0.5 px-1" : "py-1 px-2"
-  } flex gap-2 items-center justify-start w-fit bg-transparent transition-bg duration-300 rounded text-sm sm:text-base`;
+  } flex gap-2 items-center justify-start w-fit bg-transparent transition-bg duration-300 rounded text-sm sm:text-base cursor-pointer`;
   if (href)
     return (
       <Link className={classes} href={href}>
