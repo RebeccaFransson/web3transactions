@@ -26,7 +26,7 @@ export class EtherscanService {
     address: string;
     page?: number;
   }): Promise<Transaction[]> {
-    let url = `${this.apiBaseUrl}?module=account&action=txlist&address=${address}&page=${page}&offset=10&sort=asc&apikey=${this.apiKey}`;
+    let url = `${this.apiBaseUrl}?module=account&action=txlist&address=${address}&page=${page}&offset=10&sort=desc&apikey=${this.apiKey}`;
     return await this.request(url, {
       method: this.methods.GET,
     });

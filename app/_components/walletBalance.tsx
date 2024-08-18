@@ -7,8 +7,18 @@ import { CopyIcon } from "./icons/copy";
 import { TextMedium, TextLarge } from "./text";
 import { EthIcon } from "./icons/eth";
 import { formatEther } from "viem";
+import { Toggle } from "./toggle";
+import { Network } from "../types";
 
-export const WalletBalance = ({ address }: { address: string }) => {
+export const WalletBalance = ({
+  address,
+  network,
+  setNetwork,
+}: {
+  address: string;
+  network: Network;
+  setNetwork: (network: Network) => void;
+}) => {
   const service = new EtherscanService();
   const [balance, setBalance] = useState<bigint | null>(null);
 
@@ -23,7 +33,7 @@ export const WalletBalance = ({ address }: { address: string }) => {
   return (
     <div className="rounded border-b-2 border-pink-50 p-4">
       <div className="flex gap-4 justify-start min-[862px]:justify-around flex-wrap">
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-1">
           <TextMedium bold className="text-gray">
             Address
           </TextMedium>
@@ -33,13 +43,15 @@ export const WalletBalance = ({ address }: { address: string }) => {
             </TextLarge>
             <TextButton
               className="stroke-pink-900 hover:bg-pink-transparent"
-              onClick={() => {}}
+              onClick={() => {
+                navigator.clipboard.writeText(address);
+              }}
             >
               <CopyIcon />
             </TextButton>
           </div>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-1">
           <TextMedium bold className="text-gray">
             Balance
           </TextMedium>
@@ -54,18 +66,19 @@ export const WalletBalance = ({ address }: { address: string }) => {
             </PrimaryButton>
           </div>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-1">
           <TextMedium bold className="text-gray">
-            Other
+            Network
           </TextMedium>
 
           <div className="flex gap-4 items-center">
-            <TextLarge bold className=" text-black pr-4">
-              Something
-            </TextLarge>
-            <SeconaryButton small className="text-pink-400" onClick={() => {}}>
-              Button
-            </SeconaryButton>
+            <Toggle
+              values={["Ethereum", "Polygon"]}
+              activeIndex={network === Network.Etherium ? 0 : 1}
+              onClick={(index: number) =>
+                setNetwork(index === 0 ? Network.Etherium : Network.Polygon)
+              }
+            />
           </div>
         </div>
       </div>

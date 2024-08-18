@@ -23,6 +23,7 @@ import {
 import { CopyIcon } from "../_components/icons/copy"; // Import everything
 import Link from "next/link";
 import { decodeAbiParameters, formatEther, type Hex } from "viem";
+import { Network } from "../types";
 
 export default function Transactions({
   params,
@@ -31,6 +32,7 @@ export default function Transactions({
 }) {
   const service = new EtherscanService();
   const [transactions, setTrasactions] = useState<Transaction[]>([]);
+  const [network, setNetwork] = useState<Network>(Network.Etherium);
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -42,33 +44,27 @@ export default function Transactions({
     fetchTransactions();
   }, []);
 
-  const getFunctionBadge = (func: string) => {
+  const getFunctionBadge = (func: string, input: string) => {
     const type = func.split("(")[0];
     switch (type) {
       case "withdraw":
-        return <PrimaryBadge>Withdraw</PrimaryBadge>;
+        return <SecondaryBadge>Withdraw</SecondaryBadge>;
       case "approve":
-        return <SecondaryBadge>Approve</SecondaryBadge>;
+        return <PositiveBadge>Approve</PositiveBadge>;
       case "transfer":
         return <WarningBadge>Transfer</WarningBadge>;
-
       default:
-        return <PositiveBadge>Recieve</PositiveBadge>;
+        return "";
     }
-  };
-
-  const formatAmount = (input: Hex) => {
-    const amountInWei = decodeAmount(input);
-    console.log("amountInWei", amountInWei);
-    const amountInEth = Number(formatEther(amountInWei));
-    //if (amountInEth < 1e3) return `${amountInEth} ETH`;
-    //else return formatEtherShort(amountInEth, 2);
-    return `${amountInEth} ETH`;
   };
 
   return (
     <div className="w-full flex flex-col gap-8 sm:gap-12">
-      <WalletBalance address={params.address} />
+      <WalletBalance
+        address={params.address}
+        network={network}
+        setNetwork={setNetwork}
+      />
       <div className=" flex flex-col items-center p-2 sm:p-4">
         <div className="w-full lg:w-[990px]">
           <H1 className="pl-5">TRANSACTIONS</H1>
@@ -90,7 +86,7 @@ export default function Transactions({
                       className="text-gray fill-gray hover:text-black hover:fill-black"
                       onClick={() => {}}
                     >
-                      <TextMedium bold>Date</TextMedium>
+                      <TextMedium bold>Age</TextMedium>
                       <SortUpAndDownIcon />
                     </TextButton>
                   </th>
@@ -104,7 +100,7 @@ export default function Transactions({
                   <th className="pt-4 pb-2 sm:table-cell hidden">
                     <div className="flex items-center">
                       <TextMedium bold className="text-gray">
-                        Action
+                        Method
                       </TextMedium>
                     </div>
                   </th>
@@ -119,7 +115,7 @@ export default function Transactions({
                   >
                     <th className="py-3 pl-4 text-left">
                       <TextMedium className="py-1 px-2 text-black">
-                        {formatAmount(transaction.input)}
+                        {transaction.value} ETH
                       </TextMedium>
                     </th>
                     <th className="text-left">
@@ -141,14 +137,19 @@ export default function Transactions({
                         </Link>
                         <TextButton
                           className="stroke-pink-900 hover:bg-pink-transparent"
-                          onClick={() => {}}
+                          onClick={() => {
+                            navigator.clipboard.writeText(transaction.hash);
+                          }}
                         >
                           <CopyIcon small />
                         </TextButton>
                       </div>
                     </th>
                     <th className="text-left sm:table-cell hidden">
-                      {getFunctionBadge(transaction.functionName)}
+                      {getFunctionBadge(
+                        transaction.functionName,
+                        transaction.input
+                      )}
                     </th>
                     <th className="">
                       <div className="flex items-center justify-center">
