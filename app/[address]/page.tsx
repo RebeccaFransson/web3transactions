@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import {
   PositiveBadge,
   PrimaryBadge,
+  SecondaryBadge,
   WarningBadge,
 } from "../_components/badge";
 import { Box } from "../_components/box";
@@ -13,7 +14,12 @@ import { H1, TextMedium } from "../_components/text";
 import { WalletBalance } from "../_components/walletBalance";
 import { EtherscanService } from "../services/etherscanService";
 import type { Transaction } from "../services/response";
-import { decodeAmount, formatAddressShort, formatEtherShort } from "../utils";
+import {
+  calculateTimeAgo,
+  decodeAmount,
+  formatAddressShort,
+  formatEtherShort,
+} from "../utils";
 import { CopyIcon } from "../_components/icons/copy"; // Import everything
 import Link from "next/link";
 import { decodeAbiParameters, formatEther, type Hex } from "viem";
@@ -42,13 +48,22 @@ export default function Transactions({
       case "withdraw":
         return <PrimaryBadge>Withdraw</PrimaryBadge>;
       case "approve":
-        return <PositiveBadge>Approve</PositiveBadge>;
+        return <SecondaryBadge>Approve</SecondaryBadge>;
       case "transfer":
         return <WarningBadge>Transfer</WarningBadge>;
 
       default:
-        break;
+        return <PositiveBadge>Recieve</PositiveBadge>;
     }
+  };
+
+  const formatAmount = (input: Hex) => {
+    const amountInWei = decodeAmount(input);
+    console.log("amountInWei", amountInWei);
+    const amountInEth = Number(formatEther(amountInWei));
+    //if (amountInEth < 1e3) return `${amountInEth} ETH`;
+    //else return formatEtherShort(amountInEth, 2);
+    return `${amountInEth} ETH`;
   };
 
   return (
@@ -104,29 +119,24 @@ export default function Transactions({
                   >
                     <th className="py-3 pl-4 text-left">
                       <TextMedium className="py-1 px-2 text-black">
-                        {decodeAmount(transaction.input)
-                          ? formatEtherShort(
-                              Number(
-                                formatEther(decodeAmount(transaction.input))
-                              ),
-                              2
-                            )
-                          : ""}
+                        {formatAmount(transaction.input)}
                       </TextMedium>
                     </th>
                     <th className="text-left">
                       <TextMedium className="py-1 px-2 text-black">
-                        {transaction.timeStamp}
+                        {calculateTimeAgo(
+                          new Date(transaction.timeStamp * 1000)
+                        )}
                       </TextMedium>
                     </th>
                     <th className="text-left ">
                       <div className="flex gap-1 items-center">
                         <Link
                           target="_blank"
-                          href={`https://blockexplorer.one/ethereum/mainnet/blockHash/${transaction.blockHash}`}
+                          href={`https://blockexplorer.one/ethereum/mainnet/tx/${transaction.hash}`}
                         >
                           <TextMedium className=" text-black hover:text-pink-900">
-                            {formatAddressShort(transaction.blockHash)}
+                            {formatAddressShort(transaction.hash)}
                           </TextMedium>
                         </Link>
                         <TextButton
@@ -144,7 +154,7 @@ export default function Transactions({
                       <div className="flex items-center justify-center">
                         <TextButton
                           className="fill-pink-900 group-hover:bg-pink-transparent"
-                          href={`${params.address}/${transaction.blockHash}`}
+                          href={`${params.address}/${transaction.hash}`}
                           small
                         >
                           <ArrowRightIcon />

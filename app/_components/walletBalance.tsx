@@ -47,7 +47,7 @@ export const WalletBalance = ({ address }: { address: string }) => {
           <div className="flex gap-4 items-center">
             <TextLarge bold className="flex gap-2 items-center text-black pr-4">
               <EthIcon />{" "}
-              {balance ? Number(formatEther(balance)).toFixed(2) : "-"}
+              {balance ? `${Number(formatEther(balance)).toFixed(2)} ETH` : "-"}
             </TextLarge>
             <PrimaryButton small onClick={() => {}}>
               Action

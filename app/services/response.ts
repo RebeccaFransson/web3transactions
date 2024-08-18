@@ -4,6 +4,6 @@ export type Transaction = {
   timeStamp: number;
   value: number;
   functionName: string;
-  blockHash: Hex;
+  hash: Hex;
   input: Hex;
 };

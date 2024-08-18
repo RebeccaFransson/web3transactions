@@ -47,12 +47,6 @@ export const calculateTimeAgo = (date: Date | string) => {
 
 export const formatEtherShort = (ether: number, digits: number) => {
   const lookup = [
-    { value: 0.000000000000000001, symbol: " Wei" },
-    { value: 0.000000000000001, symbol: " Kwei" },
-    { value: 0.000000000001, symbol: " Mwei" },
-    { value: 0.000000001, symbol: " Gwei" },
-    { value: 0.000001, symbol: " Szabo" },
-    { value: 0.001, symbol: " Finney" },
     { value: 1, symbol: " Ether" },
     { value: 1e3, symbol: " KEther" },
     { value: 1e6, symbol: " MEther" },
@@ -86,10 +80,5 @@ export const decodeAmount = (input: Hex) => {
     [{ name: "amount", type: "uint256" }],
     `0x${input.slice(10)}`
   );
-  console.log(values);
-  console.log(formatEther(values[0]));
-  console.log(Number(formatEther(values[0])));
-  console.log(formatEtherShort(Number(formatEther(values[0])), 2));
-
   return values[0];
 };

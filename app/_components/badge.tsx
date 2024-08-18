@@ -5,14 +5,16 @@ const Badge = ({
   color,
 }: {
   children: ReactNode;
-  color: "primary" | "positive" | "warning";
+  color: "primary" | "secondary" | "positive" | "warning";
 }) => {
   const getColorClasses = () => {
     switch (color) {
       case "primary":
         return "bg-pink-100 border-pink-300 text-pink ";
+      case "secondary":
+        return "bg-blue-100 border-blue-300 text-blue-500 ";
       case "positive":
-        return "bg-green-100 border-green-300 text-green ";
+        return "bg-green-100 border-green-300 text-green-500 ";
       case "warning":
         return "bg-orange-100 border-orange-300 text-orange ";
       default:
@@ -30,6 +32,10 @@ const Badge = ({
 
 export const PrimaryBadge = ({ children }: { children: ReactNode }) => {
   return <Badge color="primary">{children}</Badge>;
+};
+
+export const SecondaryBadge = ({ children }: { children: ReactNode }) => {
+  return <Badge color="secondary">{children}</Badge>;
 };
 
 export const PositiveBadge = ({ children }: { children: ReactNode }) => {
