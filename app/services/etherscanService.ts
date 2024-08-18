@@ -1,4 +1,4 @@
-import type { Transaction } from "./response";
+import type { ContractStatus, Transaction } from "./response";
 
 export class EtherscanService {
   protected apiBaseUrl = "https://api.etherscan.io/api";
@@ -34,6 +34,17 @@ export class EtherscanService {
 
   async fetchBalance({ address }: { address: string }): Promise<bigint> {
     let url = `${this.apiBaseUrl}?module=account&action=balance&address=${address}&tag=latest&apikey=${this.apiKey}`;
+    return await this.request(url, {
+      method: this.methods.GET,
+    });
+  }
+
+  async fetchContractStatus({
+    hash,
+  }: {
+    hash: string;
+  }): Promise<ContractStatus> {
+    let url = `${this.apiBaseUrl}?module=transaction&action=getstatus&txhash=${hash}&apikey=${this.apiKey}`;
     return await this.request(url, {
       method: this.methods.GET,
     });

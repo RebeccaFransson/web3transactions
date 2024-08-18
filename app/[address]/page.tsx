@@ -115,7 +115,7 @@ export default function Transactions({
                 {transactions.map((transaction) => (
                   <tr
                     key={transaction.timeStamp}
-                    className="border-b border-gray-50 group hover:bg-gray-50"
+                    className="border-b border-gray-50 hover:bg-gray-50"
                   >
                     <th className="py-3 pl-4 text-left">
                       <TextMedium className="py-1 px-2 text-black">
@@ -153,8 +153,8 @@ export default function Transactions({
                     <th className="">
                       <div className="flex items-center justify-center">
                         <TextButton
-                          className="fill-pink-900 group-hover:bg-pink-transparent"
-                          href={`${params.address}/${transaction.hash}`}
+                          className="fill-pink-900 hover:bg-pink-transparent"
+                          href={`details/${transaction.hash}`}
                           small
                         >
                           <ArrowRightIcon />

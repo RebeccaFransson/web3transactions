@@ -7,3 +7,5 @@ export type Transaction = {
   hash: Hex;
   input: Hex;
 };
+
+export type ContractStatus = { isError: "1" | "0"; errDescription: string };
