@@ -6,10 +6,11 @@ import { TextButton, PrimaryButton, SeconaryButton } from "./button";
 import { CopyIcon } from "./icons/copy";
 import { TextMedium, TextLarge } from "./text";
 import { EthIcon } from "./icons/eth";
-import { formatEther } from "viem";
+import { formatEther, type Hex } from "viem";
 import { Toggle } from "./toggle";
 import { Network } from "../types";
 import Link from "next/link";
+import { publicClientEthereum } from "../clients";
 
 export const Summary = ({
   address,
@@ -17,8 +18,8 @@ export const Summary = ({
   network,
   setNetwork,
 }: {
-  address?: string;
-  hash?: string;
+  address?: Hex;
+  hash?: Hex;
   network: Network;
   setNetwork: (network: Network) => void;
 }) => {
@@ -28,8 +29,11 @@ export const Summary = ({
   useEffect(() => {
     if (address) {
       const fetchTransactions = async () => {
-        const data = await service.fetchBalance({ address: address });
-        setBalance(data);
+        //const data = await service.fetchBalance({ address: address });
+        const balance = await publicClientEthereum.getBalance({
+          address: address,
+        });
+        setBalance(balance);
       };
       fetchTransactions();
     }
