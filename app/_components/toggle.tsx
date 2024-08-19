@@ -11,6 +11,7 @@ export const Toggle = ({
     <div className="flex gap-2 bg-gray-100 rounded">
       {values.map((value, index) => (
         <button
+          key={value}
           className={`${
             index === activeIndex
               ? " border-pink-200  bg-pink-100 text-pink-400"
