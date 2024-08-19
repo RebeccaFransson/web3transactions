@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { formatEther, type Hex } from "viem";
 import { getClient } from "../clients";
@@ -11,6 +10,7 @@ import { EthIcon } from "./icons/eth";
 import { TextLarge, TextMedium } from "./text";
 import { Toggle } from "./toggle";
 import { PolygonIcon } from "./icons/polygon";
+import { Link } from "./link";
 
 export const Summary = ({
   address,
@@ -69,11 +69,9 @@ export const Summary = ({
             </TextMedium>
             <div className="flex gap-2 items-center">
               <Link
-                target="_blank"
                 href={`https://${
                   network === Network.Ethereum ? "etherscan" : "polygonscan"
                 }.com/tx/${hash}`}
-                className="cursor-pointer underline decoration-pink-900 hover:decoration-pink-800 "
               >
                 <TextLarge bold className=" text-pink-900 hover:text-pink-800">
                   {formatHexShort(hash)}

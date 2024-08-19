@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { type Hex } from "viem";
 import {
@@ -18,6 +17,7 @@ import { ScanService } from "../services/etherscanService";
 import type { Transaction } from "../services/response";
 import { Network } from "../types";
 import { calculateTimeAgo, formatHexShort } from "../utils";
+import { Link } from "../_components/link";
 
 export default function Transactions({ params }: { params: { address: Hex } }) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -33,7 +33,7 @@ export default function Transactions({ params }: { params: { address: Hex } }) {
     fetchTransactions();
   }, [network]);
 
-  const getFunctionBadge = (func: string) => {
+  const getMethodBadge = (func: string) => {
     const type = func.split("(")[0];
     switch (type) {
       case "withdraw":
@@ -117,13 +117,11 @@ export default function Transactions({ params }: { params: { address: Hex } }) {
                     <th className="text-left ">
                       <div className="flex gap-1 items-center">
                         <Link
-                          target="_blank"
                           href={`https://${
                             network === Network.Ethereum
                               ? "etherscan"
                               : "polygonscan"
                           }.com/tx/${transaction.hash}`}
-                          className="cursor-pointer underline decoration-pink-900 hover:decoration-pink-800 "
                         >
                           <TextMedium className=" text-pink-900 hover:text-pink-800">
                             {formatHexShort(transaction.hash)}
@@ -140,7 +138,7 @@ export default function Transactions({ params }: { params: { address: Hex } }) {
                       </div>
                     </th>
                     <th className="text-left sm:table-cell hidden">
-                      {getFunctionBadge(transaction.functionName)}
+                      {getMethodBadge(transaction.functionName)}
                     </th>
                     <th className="">
                       <div className="flex items-center justify-center">

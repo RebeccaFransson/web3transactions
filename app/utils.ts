@@ -63,7 +63,7 @@ export const formatEtherShort = (ether: number, digits: number) => {
     : "0";
 };
 
-export const formatHexShort = (address: `0x${string}` | string) => {
+export const formatHexShort = (address: Hex | string) => {
   if (!address) return "";
   const length = address.length;
   const firstFive = address.split("").splice(0, 5).join("");
