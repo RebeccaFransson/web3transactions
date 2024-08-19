@@ -130,8 +130,9 @@ export default function Transactions({
                         <Link
                           target="_blank"
                           href={`https://etherscan.io/tx/${transaction.hash}`}
+                          className="cursor-pointer underline decoration-pink-900 hover:decoration-pink-800 "
                         >
-                          <TextMedium className=" text-black hover:text-pink-900">
+                          <TextMedium className=" text-pink-900 hover:text-pink-800">
                             {formatHexShort(transaction.hash)}
                           </TextMedium>
                         </Link>

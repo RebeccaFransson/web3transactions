@@ -67,9 +67,9 @@ export const Summary = ({
               <Link
                 target="_blank"
                 href={`https://etherscan.io/tx/${hash}`}
-                className="cursor-pointer underline decoration-pink-900 "
+                className="cursor-pointer underline decoration-pink-900 hover:decoration-pink-800 "
               >
-                <TextLarge bold className=" text-black hover:text-pink-900">
+                <TextLarge bold className=" text-pink-900 hover:text-pink-800">
                   {formatHexShort(hash)}
                 </TextLarge>
               </Link>
