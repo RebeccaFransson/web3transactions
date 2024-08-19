@@ -20,7 +20,7 @@ import { Network } from "../types";
 import { calculateTimeAgo, formatHexShort } from "../utils";
 
 export default function Transactions({ params }: { params: { address: Hex } }) {
-  const [transactions, setTrasactions] = useState<Transaction[]>([]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [network, setNetwork] = useState<Network>(Network.Ethereum);
 
   useEffect(() => {
@@ -28,11 +28,8 @@ export default function Transactions({ params }: { params: { address: Hex } }) {
       const data = await new ScanService(network).fetchTransactions({
         address: params.address,
       });
-      setTrasactions(data);
-      console.log("new data", data);
-      //
+      setTransactions(data);
     };
-    console.log("new network", network);
     fetchTransactions();
   }, [network]);
 
@@ -145,7 +142,7 @@ export default function Transactions({ params }: { params: { address: Hex } }) {
                       <div className="flex items-center justify-center">
                         <TextButton
                           className="fill-pink-900 hover:bg-pink-transparent"
-                          href={`details/${transaction.hash}`}
+                          href={`details/${Network[network]}/${transaction.hash}`}
                           small
                         >
                           <ArrowRightIcon />

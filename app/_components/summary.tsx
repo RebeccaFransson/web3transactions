@@ -1,16 +1,16 @@
 "use client";
-import { useEffect, useState } from "react";
-import { ScanService } from "../services/etherscanService";
-import { formatHexShort, formatEtherShort } from "../utils";
-import { TextButton, PrimaryButton, SeconaryButton } from "./button";
-import { CopyIcon } from "./icons/copy";
-import { TextMedium, TextLarge } from "./text";
-import { EthIcon } from "./icons/eth";
-import { formatEther, type Hex } from "viem";
-import { Toggle } from "./toggle";
-import { Network } from "../types";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { formatEther, type Hex } from "viem";
 import { getClient } from "../clients";
+import { Network } from "../types";
+import { formatHexShort } from "../utils";
+import { PrimaryButton, TextButton } from "./button";
+import { CopyIcon } from "./icons/copy";
+import { EthIcon } from "./icons/eth";
+import { TextLarge, TextMedium } from "./text";
+import { Toggle } from "./toggle";
+import { PolygonIcon } from "./icons/polygon";
 
 export const Summary = ({
   address,
@@ -21,9 +21,10 @@ export const Summary = ({
   address?: Hex;
   hash?: Hex;
   network: Network;
-  setNetwork: (network: Network) => void;
+  setNetwork?: (network: Network) => void;
 }) => {
   const [balance, setBalance] = useState<bigint | null>(null);
+  console.log(network);
   const client = getClient(network);
 
   useEffect(() => {
@@ -114,13 +115,23 @@ export const Summary = ({
           </TextMedium>
 
           <div className="flex gap-4 items-center">
-            <Toggle
-              values={["Ethereum", "Polygon"]}
-              activeIndex={network === Network.Ethereum ? 0 : 1}
-              onClick={(index: number) =>
-                setNetwork(index === 0 ? Network.Ethereum : Network.Polygon)
-              }
-            />
+            {setNetwork ? (
+              <Toggle
+                values={["Ethereum", "Polygon"]}
+                activeIndex={network === Network.Ethereum ? 0 : 1}
+                onClick={(index: number) =>
+                  setNetwork(index === 0 ? Network.Ethereum : Network.Polygon)
+                }
+              />
+            ) : (
+              <TextLarge
+                bold
+                className="flex gap-2 items-center text-black pr-4"
+              >
+                {network === Network.Ethereum ? <EthIcon /> : <PolygonIcon />}
+                {Network[network]}
+              </TextLarge>
+            )}
           </div>
         </div>
       </div>
