@@ -24,7 +24,6 @@ export const Summary = ({
   setNetwork?: (network: Network) => void;
 }) => {
   const [balance, setBalance] = useState<bigint | null>(null);
-  console.log(network);
   const client = getClient(network);
 
   useEffect(() => {

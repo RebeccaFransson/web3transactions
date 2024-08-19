@@ -16,7 +16,7 @@ import { H1, TextMedium } from "../_components/text";
 import { ScanService } from "../services/etherscanService";
 import type { Transaction } from "../services/response";
 import { Network } from "../types";
-import { calculateTimeAgo, formatHexShort } from "../utils";
+import { calculateTimeAgo, formatHexShort, getCurrency } from "../utils";
 import { Link } from "../_components/link";
 
 export default function Transactions({ params }: { params: { address: Hex } }) {
@@ -104,7 +104,7 @@ export default function Transactions({ params }: { params: { address: Hex } }) {
                   >
                     <th className="py-3 pl-4 text-left">
                       <TextMedium className="py-1 px-2 text-black">
-                        {transaction.value} ETH
+                        {transaction.value} {getCurrency(network)}
                       </TextMedium>
                     </th>
                     <th className="text-left">

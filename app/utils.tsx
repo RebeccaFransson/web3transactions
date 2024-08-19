@@ -1,5 +1,8 @@
 import type { Hex } from "viem";
 import { decodeAbiParameters, formatEther } from "viem/utils";
+import { Network } from "./types";
+import { EthIcon } from "./_components/icons/eth";
+import { PolygonIcon } from "./_components/icons/polygon";
 
 export const formatDate = (date: Date) => {
   // TODO: get translations into the date
@@ -81,4 +84,17 @@ export const decodeAmount = (input: Hex) => {
     `0x${input.slice(10)}`
   );
   return values[0];
+};
+
+export const getCurrency = (network: Network) => {
+  console.log(network);
+  return network === Network.Ethereum ? (
+    <>
+      ETH <EthIcon small />
+    </>
+  ) : (
+    <>
+      MATIC <PolygonIcon small />
+    </>
+  );
 };

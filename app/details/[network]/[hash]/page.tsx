@@ -10,6 +10,7 @@ import { Summary } from "@/app/_components/summary";
 import { TextMedium } from "@/app/_components/text";
 import { getClient } from "@/app/clients";
 import { Network } from "@/app/types";
+import { getCurrency } from "@/app/utils";
 import { useEffect, useState } from "react";
 import {
   formatEther,
@@ -85,7 +86,7 @@ export default function Details({
                     Amount
                   </TextMedium>
                   <div className="flex gap-2 items-center">
-                    {formatEther(transaction.value)} ETH
+                    {formatEther(transaction.value)} {getCurrency(network)}
                   </div>
                 </div>
                 <div className="flex items-center gap-1 py-2">
@@ -106,7 +107,7 @@ export default function Details({
                           transaction.effectiveGasPrice * transaction.gasUsed
                         )
                       : "-"}{" "}
-                    ETH
+                    {getCurrency(network)}
                   </div>
                 </div>
                 <div className="flex items-center gap-1 pt-4 pb-2 border-t">
