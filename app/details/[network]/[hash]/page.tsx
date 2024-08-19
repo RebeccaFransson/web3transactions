@@ -96,7 +96,7 @@ export default function Details({
                     {dateFormatter.format(transaction.timestamp)}
                   </div>
                 </div>
-                <div className="flex items-center gap-1 py-2">
+                <div className="flex items-center gap-1 pb-4 pt-2">
                   <TextMedium bold className="text-gray w-[150px]">
                     Transaction fee
                   </TextMedium>
@@ -109,7 +109,7 @@ export default function Details({
                     ETH
                   </div>
                 </div>
-                <div className="flex items-center gap-1 py-2 border-t">
+                <div className="flex items-center gap-1 pt-4 pb-2 border-t">
                   <TextMedium bold className="text-gray w-[150px]">
                     To
                   </TextMedium>
@@ -147,7 +147,7 @@ export default function Details({
                 </div>
               </div>
             ) : (
-              <>Could not find transaction</>
+              <>loading..</>
             )}
           </Box>
         </div>

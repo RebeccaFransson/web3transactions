@@ -24,7 +24,12 @@ export const PrimaryButton = ({
         {children}
       </Link>
     );
-  if (onClick) return <button className={classes}>{children}</button>;
+  if (onClick)
+    return (
+      <button className={classes} onClick={onClick}>
+        {children}
+      </button>
+    );
   throw Error(
     "Button needs either a href(becomes a link) or a onClick(becomes a button)."
   );
