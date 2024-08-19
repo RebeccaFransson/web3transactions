@@ -70,7 +70,9 @@ export const Summary = ({
             <div className="flex gap-2 items-center">
               <Link
                 target="_blank"
-                href={`https://etherscan.io/tx/${hash}`}
+                href={`https://${
+                  network === Network.Ethereum ? "etherscan" : "polygonscan"
+                }.com/tx/${hash}`}
                 className="cursor-pointer underline decoration-pink-900 hover:decoration-pink-800 "
               >
                 <TextLarge bold className=" text-pink-900 hover:text-pink-800">

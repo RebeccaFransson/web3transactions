@@ -118,7 +118,11 @@ export default function Transactions({ params }: { params: { address: Hex } }) {
                       <div className="flex gap-1 items-center">
                         <Link
                           target="_blank"
-                          href={`https://etherscan.io/tx/${transaction.hash}`}
+                          href={`https://${
+                            network === Network.Ethereum
+                              ? "etherscan"
+                              : "polygonscan"
+                          }.com/tx/${transaction.hash}`}
                           className="cursor-pointer underline decoration-pink-900 hover:decoration-pink-800 "
                         >
                           <TextMedium className=" text-pink-900 hover:text-pink-800">

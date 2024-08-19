@@ -78,7 +78,12 @@ export const TextButton = ({
         {children}
       </Link>
     );
-  if (onClick) return <button className={classes}>{children}</button>;
+  if (onClick)
+    return (
+      <button onClick={onClick} className={classes}>
+        {children}
+      </button>
+    );
   throw Error(
     "Button needs either a href(becomes a link) or a onClick(becomes a button)."
   );
