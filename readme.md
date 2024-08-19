@@ -27,7 +27,7 @@ So I’m assuming that the loading state is when a receipt is pending a status. 
 - Home button
 - Watching for new transactions
 - Watching for pending/loading transactions
-- USD conversion on all ETH values
+- USD conversion on all token values
 
 ## Setting up project locally
 
