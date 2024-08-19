@@ -25,8 +25,12 @@ export default function Details({
 }) {
   const network = Network[params.network as keyof typeof Network];
   const [transaction, setTransaction] = useState<
-    (TransactionReceipt & Transaction) | null
+    (TransactionReceipt & Transaction & { timestamp: Date }) | null
   >(null);
+  const dateFormatter = new Intl.DateTimeFormat("en-GB", {
+    dateStyle: "long",
+    timeStyle: "long",
+  });
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -37,9 +41,14 @@ export default function Details({
       const transaction = await client.getTransaction({
         hash: params.hash,
       });
-      console.log("Receipt", transactionReceipt);
-      console.log("transaction", transaction);
-      setTransaction({ ...transactionReceipt, ...transaction });
+      const block = await client.getBlock({
+        blockNumber: transaction.blockNumber,
+      });
+      setTransaction({
+        ...transactionReceipt,
+        ...transaction,
+        timestamp: new Date(Number(block.timestamp) * 1000),
+      });
     };
     fetchTransactions();
   }, []);
@@ -84,7 +93,7 @@ export default function Details({
                     Timestamp
                   </TextMedium>
                   <div className="flex gap-2 items-center">
-                    0000-00-00 00:00:00
+                    {dateFormatter.format(transaction.timestamp)}
                   </div>
                 </div>
                 <div className="flex items-center gap-1 py-2">
