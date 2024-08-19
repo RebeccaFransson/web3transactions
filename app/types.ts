@@ -1,4 +1,4 @@
 export enum Network {
-  Etherium = 0,
+  Ethereum = 0,
   Polygon = 1,
 }

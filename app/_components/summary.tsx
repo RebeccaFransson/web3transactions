@@ -10,7 +10,7 @@ import { formatEther, type Hex } from "viem";
 import { Toggle } from "./toggle";
 import { Network } from "../types";
 import Link from "next/link";
-import { publicClientEthereum } from "../clients";
+import { getClient } from "../clients";
 
 export const Summary = ({
   address,
@@ -23,14 +23,13 @@ export const Summary = ({
   network: Network;
   setNetwork: (network: Network) => void;
 }) => {
-  const service = new EtherscanService();
   const [balance, setBalance] = useState<bigint | null>(null);
+  const client = getClient(network);
 
   useEffect(() => {
     if (address) {
       const fetchTransactions = async () => {
-        //const data = await service.fetchBalance({ address: address });
-        const balance = await publicClientEthereum.getBalance({
+        const balance = await client.getBalance({
           address: address,
         });
         setBalance(balance);
@@ -117,9 +116,9 @@ export const Summary = ({
           <div className="flex gap-4 items-center">
             <Toggle
               values={["Ethereum", "Polygon"]}
-              activeIndex={network === Network.Etherium ? 0 : 1}
+              activeIndex={network === Network.Ethereum ? 0 : 1}
               onClick={(index: number) =>
-                setNetwork(index === 0 ? Network.Etherium : Network.Polygon)
+                setNetwork(index === 0 ? Network.Ethereum : Network.Polygon)
               }
             />
           </div>

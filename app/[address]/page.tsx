@@ -32,7 +32,7 @@ export default function Transactions({
 }) {
   const service = new EtherscanService();
   const [transactions, setTrasactions] = useState<Transaction[]>([]);
-  const [network, setNetwork] = useState<Network>(Network.Etherium);
+  const [network, setNetwork] = useState<Network>(Network.Ethereum);
 
   useEffect(() => {
     const fetchTransactions = async () => {
