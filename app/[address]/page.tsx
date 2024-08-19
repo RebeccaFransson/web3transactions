@@ -1,35 +1,25 @@
 "use client";
+import Link from "next/link";
 import { useEffect, useState } from "react";
+import { type Hex } from "viem";
 import {
   PositiveBadge,
-  PrimaryBadge,
   SecondaryBadge,
   WarningBadge,
 } from "../_components/badge";
 import { Box } from "../_components/box";
 import { TextButton } from "../_components/button";
 import { ArrowRightIcon } from "../_components/icons/arrowRight";
+import { CopyIcon } from "../_components/icons/copy";
 import { SortUpAndDownIcon } from "../_components/icons/sort";
-import { H1, TextMedium } from "../_components/text";
 import { Summary } from "../_components/summary";
+import { H1, TextMedium } from "../_components/text";
 import { EtherscanService } from "../services/etherscanService";
 import type { Transaction } from "../services/response";
-import {
-  calculateTimeAgo,
-  decodeAmount,
-  formatHexShort,
-  formatEtherShort,
-} from "../utils";
-import { CopyIcon } from "../_components/icons/copy"; // Import everything
-import Link from "next/link";
-import { decodeAbiParameters, formatEther, type Hex } from "viem";
 import { Network } from "../types";
+import { calculateTimeAgo, formatHexShort } from "../utils";
 
-export default function Transactions({
-  params,
-}: {
-  params: { address: string };
-}) {
+export default function Transactions({ params }: { params: { address: Hex } }) {
   const service = new EtherscanService();
   const [transactions, setTrasactions] = useState<Transaction[]>([]);
   const [network, setNetwork] = useState<Network>(Network.Ethereum);
@@ -44,7 +34,7 @@ export default function Transactions({
     fetchTransactions();
   }, []);
 
-  const getFunctionBadge = (func: string, input: string) => {
+  const getFunctionBadge = (func: string) => {
     const type = func.split("(")[0];
     switch (type) {
       case "withdraw":
@@ -147,10 +137,7 @@ export default function Transactions({
                       </div>
                     </th>
                     <th className="text-left sm:table-cell hidden">
-                      {getFunctionBadge(
-                        transaction.functionName,
-                        transaction.input
-                      )}
+                      {getFunctionBadge(transaction.functionName)}
                     </th>
                     <th className="">
                       <div className="flex items-center justify-center">

@@ -36,7 +36,7 @@ export const Summary = ({
       };
       fetchTransactions();
     }
-  }, []);
+  }, [network, address]);
 
   return (
     <div className="rounded border-b-2 border-pink-50 p-4">
