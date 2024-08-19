@@ -87,14 +87,13 @@ export const decodeAmount = (input: Hex) => {
 };
 
 export const getCurrency = (network: Network) => {
-  console.log(network);
   return network === Network.Ethereum ? (
-    <>
+    <div className="flex gap-1 items-center">
       ETH <EthIcon small />
-    </>
+    </div>
   ) : (
-    <>
+    <div className="flex gap-1 items-center">
       MATIC <PolygonIcon small />
-    </>
+    </div>
   );
 };

@@ -10,7 +10,7 @@ import { Summary } from "@/app/_components/summary";
 import { TextMedium } from "@/app/_components/text";
 import { getClient } from "@/app/clients";
 import { Network } from "@/app/types";
-import { getCurrency } from "@/app/utils";
+import { formatHexShort, getCurrency } from "@/app/utils";
 import { useEffect, useState } from "react";
 import {
   formatEther,
@@ -36,20 +36,24 @@ export default function Details({
   useEffect(() => {
     const fetchTransactions = async () => {
       const client = getClient(network);
-      const transactionReceipt = await client.getTransactionReceipt({
+      const transactionReceiptPromise = client.getTransactionReceipt({
         hash: params.hash,
       });
-      const transaction = await client.getTransaction({
+      const transaction = client.getTransaction({
         hash: params.hash,
       });
-      const block = await client.getBlock({
-        blockNumber: transaction.blockNumber,
-      });
-      setTransaction({
-        ...transactionReceipt,
-        ...transaction,
-        timestamp: new Date(Number(block.timestamp) * 1000),
-      });
+      Promise.all([transactionReceiptPromise, transaction]).then(
+        async (values) => {
+          const block = await client.getBlock({
+            blockNumber: values[1].blockNumber,
+          });
+          setTransaction({
+            ...values[0],
+            ...values[1],
+            timestamp: new Date(Number(block.timestamp) * 1000),
+          });
+        }
+      );
     };
     fetchTransactions();
   }, []);
@@ -69,12 +73,12 @@ export default function Details({
     <div className="w-full flex flex-col gap-8 sm:gap-12">
       <Summary hash={params.hash} network={network} />
       <div className=" flex flex-col items-center p-2 sm:p-4">
-        <div className="w-full md:w-[550px]">
+        <div className="w-full md:w-[700px]">
           <Box className="p-4">
             {transaction ? (
               <div className="flex flex-col">
                 <div className="flex items-center gap-1 py-2">
-                  <TextMedium bold className="text-gray w-[150px]">
+                  <TextMedium bold className="text-gray w-[100px] sm:w-[150px]">
                     Status
                   </TextMedium>
                   <div className="flex gap-2 items-center">
@@ -82,15 +86,15 @@ export default function Details({
                   </div>
                 </div>
                 <div className="flex items-center gap-1 py-2">
-                  <TextMedium bold className="text-gray w-[150px]">
+                  <TextMedium bold className="text-gray w-[100px] sm:w-[150px]">
                     Amount
                   </TextMedium>
-                  <div className="flex gap-2 items-center">
+                  <div className="flex gap-2 items-center flex-wrap">
                     {formatEther(transaction.value)} {getCurrency(network)}
                   </div>
                 </div>
                 <div className="flex items-center gap-1 py-2">
-                  <TextMedium bold className="text-gray w-[150px]">
+                  <TextMedium bold className="text-gray w-[100px] sm:w-[150px]">
                     Timestamp
                   </TextMedium>
                   <div className="flex gap-2 items-center">
@@ -98,10 +102,10 @@ export default function Details({
                   </div>
                 </div>
                 <div className="flex items-center gap-1 pb-4 pt-2">
-                  <TextMedium bold className="text-gray w-[150px]">
+                  <TextMedium bold className="text-gray w-[100px] sm:w-[150px]">
                     Transaction fee
                   </TextMedium>
-                  <div className="flex gap-2 items-center">
+                  <div className="flex gap-2 items-center flex-wrap">
                     {transaction.status === "success"
                       ? formatEther(
                           transaction.effectiveGasPrice * transaction.gasUsed
@@ -111,10 +115,10 @@ export default function Details({
                   </div>
                 </div>
                 <div className="flex items-center gap-1 pt-4 pb-2 border-t">
-                  <TextMedium bold className="text-gray w-[150px]">
+                  <TextMedium bold className="text-gray w-[100px] sm:w-[150px]">
                     To
                   </TextMedium>
-                  <div className="flex gap-2 items-center">
+                  <div className="flex gap-2 items-center truncate">
                     <Link
                       href={`https://${
                         network === Network.Ethereum
@@ -123,16 +127,16 @@ export default function Details({
                       }.com/address/${transaction.to}`}
                     >
                       <TextMedium className=" text-pink-900 hover:text-pink-800">
-                        {transaction.to ? transaction.to : "-"}
+                        {transaction.to ?? "-"}
                       </TextMedium>
                     </Link>
                   </div>
                 </div>
                 <div className="flex items-center gap-1 py-2">
-                  <TextMedium bold className="text-gray w-[150px]">
+                  <TextMedium bold className="text-gray w-[100px] sm:w-[150px]">
                     From
                   </TextMedium>
-                  <div className="flex gap-2 items-center">
+                  <div className="flex gap-2 items-center truncate">
                     <Link
                       href={`https://${
                         network === Network.Ethereum
@@ -141,7 +145,7 @@ export default function Details({
                       }.com/address/${transaction.from}`}
                     >
                       <TextMedium className=" text-pink-900 hover:text-pink-800">
-                        {transaction.from ? transaction.from : "-"}
+                        {transaction.from ?? "-"}
                       </TextMedium>
                     </Link>
                   </div>

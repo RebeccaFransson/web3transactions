@@ -103,7 +103,7 @@ export default function Transactions({ params }: { params: { address: Hex } }) {
                     className="border-b border-gray-50 hover:bg-gray-50"
                   >
                     <th className="py-3 pl-4 text-left">
-                      <TextMedium className="py-1 px-2 text-black">
+                      <TextMedium className="flex gap-2 items-center flex-wrap py-1 px-2 text-black">
                         {transaction.value} {getCurrency(network)}
                       </TextMedium>
                     </th>
