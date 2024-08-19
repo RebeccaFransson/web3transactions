@@ -3,7 +3,7 @@ import "./globals.css";
 import { BlobPink } from "./_components/svgs/blobPink";
 import { PrimaryButton, SeconaryButton } from "./_components/button";
 import { TextMedium, TextLarge } from "./_components/text";
-import { formatAddressShort, formatUSD } from "./utils";
+import { formatHexShort, formatUSD } from "./utils";
 
 export const metadata: Metadata = {
   title: "Create Next App",

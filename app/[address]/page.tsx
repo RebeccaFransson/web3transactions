@@ -11,13 +11,13 @@ import { TextButton } from "../_components/button";
 import { ArrowRightIcon } from "../_components/icons/arrowRight";
 import { SortUpAndDownIcon } from "../_components/icons/sort";
 import { H1, TextMedium } from "../_components/text";
-import { WalletBalance } from "../_components/walletBalance";
+import { Summary } from "../_components/summary";
 import { EtherscanService } from "../services/etherscanService";
 import type { Transaction } from "../services/response";
 import {
   calculateTimeAgo,
   decodeAmount,
-  formatAddressShort,
+  formatHexShort,
   formatEtherShort,
 } from "../utils";
 import { CopyIcon } from "../_components/icons/copy"; // Import everything
@@ -60,7 +60,7 @@ export default function Transactions({
 
   return (
     <div className="w-full flex flex-col gap-8 sm:gap-12">
-      <WalletBalance
+      <Summary
         address={params.address}
         network={network}
         setNetwork={setNetwork}
@@ -129,10 +129,10 @@ export default function Transactions({
                       <div className="flex gap-1 items-center">
                         <Link
                           target="_blank"
-                          href={`https://blockexplorer.one/ethereum/mainnet/tx/${transaction.hash}`}
+                          href={`https://etherscan.io/tx/${transaction.hash}`}
                         >
                           <TextMedium className=" text-black hover:text-pink-900">
-                            {formatAddressShort(transaction.hash)}
+                            {formatHexShort(transaction.hash)}
                           </TextMedium>
                         </Link>
                         <TextButton

@@ -56,30 +56,6 @@ export const SeconaryButton = ({
   );
 };
 
-export const TextButtonOnColoredBg = ({
-  children,
-  className,
-  onClick,
-  href,
-}: {
-  children: ReactNode;
-  className?: string;
-  onClick?: () => void;
-  href?: string;
-}) => {
-  const classes = `${className} flex gap-2 items-center justify-start hover:bg-white-transparent fill-white py-1 px-2 rounded text-sm sm:text-base`;
-  if (href)
-    return (
-      <Link className={classes} href={href}>
-        {children}
-      </Link>
-    );
-  if (onClick) return <button className={classes}>{children}</button>;
-  throw Error(
-    "Button needs either a href(becomes a link) or a onClick(becomes a button)."
-  );
-};
-
 export const TextButton = ({
   children,
   className,
