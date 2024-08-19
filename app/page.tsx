@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <div className=" flex flex-col items-center p-2 sm:p-4">
       <div className="w-full md:w-[550px]">
-        <H1 className="pl-2">Search for wallet address</H1>
+        <H1 className="pl-2 pt-8 sm:pt-12">Search for wallet address</H1>
         <Box className="flex gap-2 p-2">
           <input
             className="w-full border p-2 rounded"

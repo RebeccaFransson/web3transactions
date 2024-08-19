@@ -48,7 +48,7 @@ export default function Transactions({ params }: { params: { address: Hex } }) {
   };
 
   return (
-    <div className="w-full flex flex-col gap-8 sm:gap-12">
+    <div className="w-full flex flex-col">
       <Summary
         address={params.address}
         network={network}
@@ -56,8 +56,8 @@ export default function Transactions({ params }: { params: { address: Hex } }) {
       />
       <div className=" flex flex-col items-center p-2 sm:p-4">
         <div className="w-full lg:w-[990px]">
-          <H1 className="pl-5">TRANSACTIONS</H1>
-          <Box className="">
+          <H1 className="pl-5  pt-8 sm:pt-12">TRANSACTIONS</H1>
+          <Box>
             <table className="w-full">
               <thead className=" ">
                 <tr className="border-b border-gray-100">
