@@ -1,6 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Get started
 
-## Getting Started
+1. Go to the [web3transactions vercel app](https://web3transactions-lqvi6il86-rebfras-projects.vercel.app/)
+2. Paste and search for a wallet address.
+
+## Notes
+
+I am using Etherscan's API for fetching the transaction data. I understand it introduces an additional dependency risk and that a more reliable option would be be using calling the data with JSON-RPC via Viem/Ethers library, but I wanted to get the list of transactions for the wallet in a easy way for this project.
+
+The amount = the ETH amount that is coming in and out of the wallet
+
+I had a hard time trying to find out how to know if a transaction is in the "loading"-state.
+
+```
+"Once the block is added to the blockchain, a transaction receipt is generated and stored on the blockchain. The status of the transaction: "success" if the transaction was executed, otherwise "reverted" if the transaction reverted."  - viem docs
+```
+
+So I’m assuming that the loading state is when a receipt is pending a status. In the TODO I've added a task to add a listener to listen for the pendning/loading transaction.
+
+## Todo:
+
+- Caching on the frontend requests
+- Loading states in the UI
+- Not found states in the UI
+- Refresh button
+- Back button
+- Home button
+- Watching for new transactions
+- Watching for pending/loading transactions
+- USD conversion on all ETH values
+
+## Setting up project locally
 
 First, run the development server:
 
@@ -15,22 +44,3 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
