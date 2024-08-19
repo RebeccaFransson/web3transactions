@@ -18,34 +18,34 @@ export const calculateTimeAgo = (date: Date | string) => {
   if (!(dateObj instanceof Date) || isNaN(dateObj.getTime())) {
     throw new TypeError("Invalid date");
   }
-
+  console.log("calculateTimeAgo", dateObj);
   let seconds = Math.floor((new Date().getTime() - dateObj.getTime()) / 1000);
   let interval = seconds / 31536000;
 
   if (interval > 1) {
-    return Math.floor(interval) + "y ago";
+    return Math.floor(interval) + " years ago";
   }
   interval = seconds / 2592000;
   if (interval > 1) {
-    return Math.floor(interval) + "m ago";
+    return Math.floor(interval) + " months ago";
   }
   interval = seconds / 604800;
   if (interval > 1) {
-    return Math.floor(interval) + "w ago";
+    return Math.floor(interval) + " weeks ago";
   }
   interval = seconds / 86400;
   if (interval > 1) {
-    return Math.floor(interval) + "d ago";
+    return Math.floor(interval) + " days ago";
   }
   interval = seconds / 3600;
   if (interval > 1) {
-    return Math.floor(interval) + "h ago";
+    return Math.floor(interval) + " hours ago";
   }
   interval = seconds / 60;
   if (interval > 1) {
-    return Math.floor(interval) + "m ago";
+    return Math.floor(interval) + " minutes ago";
   }
-  return Math.floor(seconds) + "s ago";
+  return Math.floor(seconds) + " seconds ago";
 };
 
 export const formatEtherShort = (ether: number, digits: number) => {

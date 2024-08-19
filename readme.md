@@ -24,7 +24,7 @@ So I’m assuming that the loading state is when a receipt is pending a status. 
 - Not found states in the UI
 - Refresh button
 - Back button
-- Home button
+- Fail safe the entire page
 - Watching for new transactions
 - Watching for pending/loading transactions
 - USD conversion on all token values
