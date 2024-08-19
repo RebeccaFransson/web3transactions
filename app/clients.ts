@@ -15,6 +15,8 @@ export const getClient = (network: Network) => {
   if (network === Network.Ethereum) return publicClientEthereum;
   if (network === Network.Polygon) return publicClientPolygon;
   throw Error(
-    `Network must be one of accpeted networks: ${Object.keys(Network)}`
+    `Network must be one of accpeted networks: ${JSON.stringify(
+      Object.keys(Network)
+    )}`
   );
 };

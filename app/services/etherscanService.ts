@@ -1,12 +1,31 @@
+import { Network } from "../types";
 import type { ContractStatus, Transaction } from "./response";
 
-export class EtherscanService {
-  protected apiBaseUrl = "https://api.etherscan.io/api";
-  protected apiKey = process.env.ETHERSCAN_KEY;
+const etherscanApiUrl = "https://api.etherscan.io/api";
+const polygonscanApiUrl = "https://api.polygonscan.com/api";
+
+export class ScanService {
+  protected apiBaseUrl;
+  protected apiKey;
 
   protected methods = {
     GET: "GET",
   };
+  constructor(network: Network) {
+    if (network === Network.Ethereum) {
+      this.apiKey = process.env.ETHERSCAN_KEY;
+      this.apiBaseUrl = etherscanApiUrl;
+    } else if (network === Network.Polygon) {
+      this.apiKey = process.env.POLYGONSCAN_KEY;
+      this.apiBaseUrl = polygonscanApiUrl;
+    } else {
+      throw Error(
+        `Network must be one of accpeted networks: ${JSON.stringify(
+          Object.keys(Network)
+        )}`
+      );
+    }
+  }
 
   protected async request(url: string, options: RequestInit): Promise<any> {
     const response = await fetch(url, options);

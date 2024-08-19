@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { EtherscanService } from "../services/etherscanService";
+import { ScanService } from "../services/etherscanService";
 import { formatHexShort, formatEtherShort } from "../utils";
 import { TextButton, PrimaryButton, SeconaryButton } from "./button";
 import { CopyIcon } from "./icons/copy";

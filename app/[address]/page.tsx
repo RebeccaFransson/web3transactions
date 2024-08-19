@@ -14,25 +14,27 @@ import { CopyIcon } from "../_components/icons/copy";
 import { SortUpAndDownIcon } from "../_components/icons/sort";
 import { Summary } from "../_components/summary";
 import { H1, TextMedium } from "../_components/text";
-import { EtherscanService } from "../services/etherscanService";
+import { ScanService } from "../services/etherscanService";
 import type { Transaction } from "../services/response";
 import { Network } from "../types";
 import { calculateTimeAgo, formatHexShort } from "../utils";
 
 export default function Transactions({ params }: { params: { address: Hex } }) {
-  const service = new EtherscanService();
   const [transactions, setTrasactions] = useState<Transaction[]>([]);
   const [network, setNetwork] = useState<Network>(Network.Ethereum);
 
   useEffect(() => {
     const fetchTransactions = async () => {
-      const data = await service.fetchTransactions({ address: params.address });
+      const data = await new ScanService(network).fetchTransactions({
+        address: params.address,
+      });
       setTrasactions(data);
-      console.log(data);
+      console.log("new data", data);
       //
     };
+    console.log("new network", network);
     fetchTransactions();
-  }, []);
+  }, [network]);
 
   const getFunctionBadge = (func: string) => {
     const type = func.split("(")[0];

@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    ETHERSCAN_KEY: process.env.ETHERSCAN_KEY, // pulls from .env file
+    ETHERSCAN_KEY: process.env.ETHERSCAN_KEY,
+    POLYGONSCAN_KEY: process.env.POLYGONSCAN_KEY,
   },
 };
 
