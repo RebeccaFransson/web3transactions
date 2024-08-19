@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { BlobPink } from "./_components/svgs/blobPink";
-import { PrimaryButton, SeconaryButton } from "./_components/button";
-import { TextMedium, TextLarge } from "./_components/text";
-import { formatHexShort, formatUSD } from "./utils";
+import { TextButton } from "./_components/button";
+import { CopyIcon } from "./_components/icons/copy";
+import { Contact } from "./_components/contact";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,10 +20,7 @@ export default function RootLayout({
         <div className="relative z-20 group flex gap-10 items-center justify-between text-white font-extrabold border-b border-white-transparent py-4 px-10 bg-gradient-to-l from-pink-200 to-pink-600">
           <div className="flex gap-10 items-center ">
             <h2>REBECCA FRANSSON</h2>
-            <div className="flex gap-2 md:gap-10 justify-between  flex-wrap opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-              <span className="font-normal text-sm">myemail@gmail.com</span>
-              <span className="font-normal text-sm">+phone num ber</span>
-            </div>
+            <Contact />
           </div>
         </div>
 
