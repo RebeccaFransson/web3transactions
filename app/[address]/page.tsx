@@ -79,14 +79,14 @@ export default function Transactions({ params }: { params: { address: Hex } }) {
                       <SortUpAndDownIcon />
                     </TextButton>
                   </th>
-                  <th className="pt-4 pb-2">
+                  <th className="pt-4 pb-2 hidden sm:table-cell">
                     <div className="flex items-center">
                       <TextMedium bold className="text-gray">
                         TX Hash
                       </TextMedium>
                     </div>
                   </th>
-                  <th className="pt-4 pb-2 sm:table-cell hidden">
+                  <th className="pt-4 pb-2 hidden sm:table-cell">
                     <div className="flex items-center">
                       <TextMedium bold className="text-gray">
                         Method
@@ -114,7 +114,7 @@ export default function Transactions({ params }: { params: { address: Hex } }) {
                         )}
                       </TextMedium>
                     </th>
-                    <th className="text-left ">
+                    <th className="text-left hidden sm:table-cell">
                       <div className="flex gap-1 items-center">
                         <Link
                           href={`https://${
@@ -137,7 +137,7 @@ export default function Transactions({ params }: { params: { address: Hex } }) {
                         </TextButton>
                       </div>
                     </th>
-                    <th className="text-left sm:table-cell hidden">
+                    <th className="text-left hidden sm:table-cell">
                       {getMethodBadge(transaction.functionName)}
                     </th>
                     <th className="">
