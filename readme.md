@@ -28,6 +28,8 @@ So I’m assuming that the loading state is when a receipt is pending a status. 
 - Watching for new transactions
 - Watching for pending/loading transactions
 - USD conversion on all token values
+- Bugs:
+  - toggle between networks fast
 
 ## Setting up project locally
 

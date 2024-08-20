@@ -56,7 +56,7 @@ export default function Transactions({ params }: { params: { address: Hex } }) {
       />
       <div className=" flex flex-col items-center p-2 sm:p-4">
         <div className="w-full lg:w-[990px]">
-          <H1 className="pl-5  pt-8 sm:pt-12">TRANSACTIONS</H1>
+          <H1 className="pl-5  pt-8 sm:pt-12 text-orange-500">TRANSACTIONS</H1>
           <Box>
             <table className="w-full">
               <thead className=" ">
@@ -104,7 +104,7 @@ export default function Transactions({ params }: { params: { address: Hex } }) {
                   >
                     <th className="py-3 pl-4 text-left">
                       <TextMedium className="flex gap-2 items-center flex-wrap py-1 px-2 text-black">
-                        {transaction.value} {getCurrency(network)}
+                        {transaction.value} {getCurrency(network, true)}
                       </TextMedium>
                     </th>
                     <th className="text-left">

@@ -18,7 +18,6 @@ export const calculateTimeAgo = (date: Date | string) => {
   if (!(dateObj instanceof Date) || isNaN(dateObj.getTime())) {
     throw new TypeError("Invalid date");
   }
-  console.log("calculateTimeAgo", dateObj);
   let seconds = Math.floor((new Date().getTime() - dateObj.getTime()) / 1000);
   let interval = seconds / 31536000;
 
@@ -86,14 +85,14 @@ export const decodeAmount = (input: Hex) => {
   return values[0];
 };
 
-export const getCurrency = (network: Network) => {
+export const getCurrency = (network: Network, small = false) => {
   return network === Network.Ethereum ? (
     <div className="flex gap-1 items-center">
-      ETH <EthIcon small />
+      ETH <EthIcon small={small} />
     </div>
   ) : (
     <div className="flex gap-1 items-center">
-      MATIC <PolygonIcon small />
+      MATIC <PolygonIcon small={small} />
     </div>
   );
 };

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { formatEther, type Hex } from "viem";
 import { getClient } from "../clients";
 import { Network } from "../types";
-import { formatHexShort } from "../utils";
+import { formatHexShort, getCurrency } from "../utils";
 import { PrimaryButton, TextButton } from "./button";
 import { CopyIcon } from "./icons/copy";
 import { EthIcon } from "./icons/eth";
@@ -24,12 +24,11 @@ export const Summary = ({
   setNetwork?: (network: Network) => void;
 }) => {
   const [balance, setBalance] = useState<bigint | null>(null);
-  const client = getClient(network);
 
   useEffect(() => {
     if (address) {
       const fetchTransactions = async () => {
-        const balance = await client.getBalance({
+        const balance = await getClient(network).getBalance({
           address: address,
         });
         setBalance(balance);
@@ -98,13 +97,11 @@ export const Summary = ({
                 bold
                 className="flex gap-2 items-center text-black pr-4"
               >
-                <EthIcon />{" "}
-                {balance ? `${Number(formatEther(balance)).toFixed(2)}` : "-"}{" "}
-                ETH
+                {typeof balance === "bigint"
+                  ? `${Number(formatEther(balance)).toFixed(2)}`
+                  : "-"}{" "}
+                {getCurrency(network)}
               </TextLarge>
-              <PrimaryButton small onClick={() => {}}>
-                Action
-              </PrimaryButton>
             </div>
           </div>
         ) : null}
