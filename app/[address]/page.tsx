@@ -13,7 +13,7 @@ import { CopyIcon } from "../_components/icons/copy";
 import { SortUpAndDownIcon } from "../_components/icons/sort";
 import { Summary } from "../_components/summary";
 import { H1, TextMedium } from "../_components/text";
-import { ScanService } from "../services/etherscanService";
+import { ScanService } from "../services/scanService";
 import type { Transaction } from "../services/response";
 import { Network } from "../types";
 import { calculateTimeAgo, formatHexShort, getCurrency } from "../utils";

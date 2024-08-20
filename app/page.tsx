@@ -5,10 +5,11 @@ import { PrimaryButton } from "./_components/button";
 import { useState } from "react";
 
 export default function Home() {
+  const sampleAddress = "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619";
   const [address, setAddress] = useState("");
 
   const onSearch = () => {
-    window.location.href = `/${address}`;
+    window.location.href = `/${address !== "" ? address : sampleAddress}`;
   };
 
   return (
@@ -19,6 +20,7 @@ export default function Home() {
           <input
             className="w-full border p-2 rounded"
             value={address}
+            placeholder={sampleAddress}
             onChange={(e) => setAddress(e.target.value)}
           />
           <PrimaryButton onClick={onSearch}>Search</PrimaryButton>

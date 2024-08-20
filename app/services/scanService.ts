@@ -11,6 +11,7 @@ export class ScanService {
   protected methods = {
     GET: "GET",
   };
+
   constructor(network: Network) {
     if (network === Network.Ethereum) {
       this.apiKey = process.env.ETHERSCAN_KEY;

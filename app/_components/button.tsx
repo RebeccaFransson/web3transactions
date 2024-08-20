@@ -17,7 +17,7 @@ export const PrimaryButton = ({
 }) => {
   const classes = `${className} ${
     small ? "py-1 px-2" : "py-2 px-4"
-  }  bg-gradient-to-r from-pink-600 via-pink-400 to-pink-600 rounded text-white font-bold text-sm sm:text-base outline outline-2 outline-transparent hover:outline-pink-transparent bg-size-200 bg-pos-0 hover:bg-pos-100 transition-all duration-300 `;
+  }  bg-gradient-to-r from-orange-500 via-pink-600 to-orange-500 rounded text-white font-bold text-sm sm:text-base outline outline-2 outline-transparent hover:outline-pink-transparent bg-size-200 bg-pos-0 hover:bg-pos-100 transition-all duration-300 `;
   if (href)
     return (
       <Link className={classes} href={href}>

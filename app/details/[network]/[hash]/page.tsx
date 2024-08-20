@@ -39,10 +39,10 @@ export default function Details({
       const transactionReceiptPromise = client.getTransactionReceipt({
         hash: params.hash,
       });
-      const transaction = client.getTransaction({
+      const transactionPromise = client.getTransaction({
         hash: params.hash,
       });
-      Promise.all([transactionReceiptPromise, transaction]).then(
+      Promise.all([transactionReceiptPromise, transactionPromise]).then(
         async (values) => {
           const block = await client.getBlock({
             blockNumber: values[1].blockNumber,
